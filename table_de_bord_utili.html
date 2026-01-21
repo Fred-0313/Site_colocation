@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon tableau de bord - Think-Execute</title>
+    <link rel="stylesheet" href="css/style_tablebord.css">
+</head>
+
+<body>
+    <!-- ==================== HEADER ==================== -->
+    <header>
+        <div class="header-container">
+            <a href="Page_acceuil.html" class="logo">Xà mi</a>
+            <div class="header-user">
+                <a href="publish-property.html" class="btn-publish">➕ Publier une annonce</a>
+                <div class="user-avatar" title="Mon profil">JD</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== DASHBOARD CONTAINER ==================== -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="user-info">
+                <div class="user-info-avatar">JD</div>
+                <div class="user-name">Jean Dupont</div>
+                <div class="user-email">jean.dupont@email.com</div>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-section="dashboard">
+                        <span class="nav-icon">📊</span>
+                        <span>Tableau de bord</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="properties">
+                        <span class="nav-icon">🏠</span>
+                        <span>Mes annonces</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="messages">
+                        <span class="nav-icon">💬</span>
+                        <span>Messages (3)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="favorites">
+                        <span class="nav-icon">❤️</span>
+                        <span>Favoris</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="settings">
+                        <span class="nav-icon">⚙️</span>
+                        <span>Paramètres</span>
+                    </a>
+                </li>
+            </ul>
+
+            <button class="logout-btn" onclick="handleLogout()">
+                🚪 Déconnexion
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- DASHBOARD SECTION -->
+            <div class="content-section active" id="dashboard">
+                <h1 class="page-title">Tableau de bord</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon blue">🏠</div>
+                        </div>
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Annonces actives</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon green">✓</div>
+                        </div>
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Annonces publiées</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon orange">👁️</div>
+                        </div>
+                        <div class="stat-number">1,245</div>
+                        <div class="stat-label">Vues totales</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon red">💬</div>
+                        </div>
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Messages reçus</div>
+                    </div>
+                </div>
+
+                <div class="properties-table-container">
+                    <div class="table-header">
+                        <h2 style="font-size: 1.3rem; font-weight: 700;">Activité récente</h2>
+                    </div>
+                    <p style="color: var(--gray-text); padding: 2rem; text-align: center;">Vos dernières interactions
+                        apparaîtront ici</p>
+                </div>
+            </div>
+
+            <!-- PROPERTIES SECTION -->
+            <div class="content-section" id="properties">
+                <h1 class="page-title">Mes annonces</h1>
+                <div class="properties-table-container">
+                    <div class="table-header">
+                        <div class="search-box">
+                            <input type="text" class="search-input" placeholder="Rechercher une annonce...">
+                            <button class="filter-btn">🔽 Filtrer</button>
+                        </div>
+                    </div>
+
+                    <table class="properties-table">
+                        <thead>
+                            <tr>
+                                <th>Bien</th>
+                                <th>Prix</th>
+                                <th>Vues</th>
+                                <th>Statut</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="property-row">
+                                <td>
+                                    <div class="property-info">
+                                        <div class="property-thumb">
+                                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=200&h=150&fit=crop"
+                                                alt="Villa">
+                                        </div>
+                                        <div class="property-details">
+                                            <h4>Villa moderne à Cotonou</h4>
+                                            <p class="property-location">📍 Fidjrossè, Cotonou</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><strong>850 000 FCFA</strong></td>
+                                <td>342</td>
+                                <td><span class="status-badge active">✓ Active</span></td>
+                                <td>15 Oct 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit" onclick="alert('Modifier l\'annonce')">✏️
+                                            Modifier</button>
+                                        <button class="action-btn delete" onclick="confirmDelete()">🗑️
+                                            Supprimer</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="property-row">
+                                <td>
+                                    <div class="property-info">
+                                        <div class="property-thumb">
+                                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=200&h=150&fit=crop"
+                                                alt="Appartement">
+                                        </div>
+                                        <div class="property-details">
+                                            <h4>Appartement 3 pièces</h4>
+                                            <p class="property-location">📍 Porto-Novo</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><strong>450 000 FCFA</strong></td>
+                                <td>189</td>
+                                <td><span class="status-badge pending">⏳ En attente</span></td>
+                                <td>12 Oct 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit">✏️ Modifier</button>
+                                        <button class="action-btn delete" onclick="confirmDelete()">🗑️
+                                            Supprimer</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="property-row">
+                                <td>
+                                    <div class="property-info">
+                                        <div class="property-thumb">
+                                            <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=200&h=150&fit=crop"
+                                                alt="Maison">
+                                        </div>
+                                        <div class="property-details">
+                                            <h4>Maison spacieuse</h4>
+                                            <p class="property-location">📍 Calavi</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><strong>750 000 FCFA</strong></td>
+                                <td>256</td>
+                                <td><span class="status-badge active">✓ Active</span></td>
+                                <td>08 Oct 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit">✏️ Modifier</button>
+                                        <button class="action-btn delete" onclick="confirmDelete()">🗑️
+                                            Supprimer</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MESSAGES SECTION -->
+            <div class="content-section" id="messages">
+                <h1 class="page-title">Messages</h1>
+                <div class="messages-container">
+                    <div class="messages-list">
+                        <div class="message-item active">
+                            <div class="message-header">
+                                <span class="message-sender">Marie Kouassi</span>
+                                <span class="message-time">10:30</span>
+                            </div>
+                            <div class="message-preview">
+                                <span class="unread-badge"></span>
+                                Bonjour, je suis intéressée par votre villa...
+                            </div>
+                        </div>
+
+                        <div class="message-item">
+                            <div class="message-header">
+                                <span class="message-sender">Ahmed Traoré</span>
+                                <span class="message-time">Hier</span>
+                            </div>
+                            <div class="message-preview">
+                                Est-ce que l'appartement est toujours disponible ?
+                            </div>
+                        </div>
+
+                        <div class="message-item">
+                            <div class="message-header">
+                                <span class="message-sender">Sophie Mensah</span>
+                                <span class="message-time">2 jours</span>
+                            </div>
+                            <div class="message-preview">
+                                <span class="unread-badge"></span>
+                                Merci pour les photos supplémentaires
+                            </div>
+                        </div>
+
+                        <div class="message-item">
+                            <div class="message-header">
+                                <span class="message-sender">Pierre Dossou</span>
+                                <span class="message-time">5 jours</span>
+                            </div>
+                            <div class="message-preview">
+                                Quand puis-je visiter le bien ?
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <h3 style="font-weight: 700;">Marie Kouassi</h3>
+                            <p style="font-size: 0.85rem; color: var(--gray-text);">À propos de: Villa moderne à Cotonou
+                            </p>
+                        </div>
+
+                        <div class="chat-messages">
+                            <div class="chat-message">
+                                <div class="chat-avatar">MK</div>
+                                <div>
+                                    <div class="chat-bubble">
+                                        Bonjour, je suis intéressée par votre villa à Fidjrossè. Est-elle toujours
+                                        disponible ?
+                                    </div>
+                                    <p style="font-size: 0.75rem; color: var(--gray-text); margin-top: 0.3rem;">10:25
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="chat-message sent">
+                                <div class="chat-avatar">JD</div>
+                                <div>
+                                    <div class="chat-bubble">
+                                        Oui, la villa est toujours disponible. Souhaitez-vous organiser une visite ?
+                                    </div>
+                                    <p
+                                        style="font-size: 0.75rem; color: var(--gray-text); margin-top: 0.3rem; text-align: right;">
+                                        10:28</p>
+                                </div>
+                            </div>
+
+                            <div class="chat-message">
+                                <div class="chat-avatar">MK</div>
+                                <div>
+                                    <div class="chat-bubble">
+                                        Oui avec plaisir ! Je suis disponible ce weekend. Samedi ou dimanche vous
+                                        conviendrait ?
+                                    </div>
+                                    <p style="font-size: 0.75rem; color: var(--gray-text); margin-top: 0.3rem;">10:30
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-container">
+                            <input type="text" class="chat-input" placeholder="Tapez votre message...">
+                            <button class="send-btn">📤 Envoyer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAVORITES SECTION -->
+            <div class="content-section" id="favorites">
+                <h1 class="page-title">Mes favoris</h1>
+
+                <div class="favorites-grid">
+                    <div class="favorite-card">
+                        <div class="favorite-image">
+                            <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=400&fit=crop"
+                                alt="Appartement">
+                            <button class="remove-favorite" onclick="removeFavorite(this)">♥</button>
+                        </div>
+                        <div class="favorite-body">
+                            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">Appartement standing
+                            </h3>
+                            <p style="color: var(--gray-text); font-size: 0.9rem; margin-bottom: 0.5rem;">📍 Akpakpa,
+                                Cotonou</p>
+                            <p style="font-size: 1.3rem; font-weight: 700; color: var(--primary-blue);">650 000
+                                FCFA/mois</p>
+                            <button class="action-btn edit" style="width: 100%; margin-top: 1rem; padding: 0.7rem;">Voir
+                                les détails</button>
+                        </div>
+                    </div>
+
+                    <div class="favorite-card">
+                        <div class="favorite-image">
+                            <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&h=400&fit=crop"
+                                alt="Villa">
+                            <button class="remove-favorite" onclick="removeFavorite(this)">♥</button>
+                        </div>
+                        <div class="favorite-body">
+                            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">Villa avec piscine
+                            </h3>
+                            <p style="color: var(--gray-text); font-size: 0.9rem; margin-bottom: 0.5rem;">📍 Cotonou</p>
+                            <p style="font-size: 1.3rem; font-weight: 700; color: var(--primary-blue);">1 200 000
+                                FCFA/mois</p>
+                            <button class="action-btn edit" style="width: 100%; margin-top: 1rem; padding: 0.7rem;">Voir
+                                les détails</button>
+                        </div>
+                    </div>
+
+                    <div class="favorite-card">
+                        <div class="favorite-image">
+                            <img src="https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=600&h=400&fit=crop"
+                                alt="Maison">
+                            <button class="remove-favorite" onclick="removeFavorite(this)">♥</button>
+                        </div>
+                        <div class="favorite-body">
+                            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">Maison moderne</h3>
+                            <p style="color: var(--gray-text); font-size: 0.9rem; margin-bottom: 0.5rem;">📍 Calavi</p>
+                            <p style="font-size: 1.3rem; font-weight: 700; color: var(--primary-blue);">750 000
+                                FCFA/mois</p>
+                            <button class="action-btn edit" style="width: 100%; margin-top: 1rem; padding: 0.7rem;">Voir
+                                les détails</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SETTINGS SECTION -->
+            <div class="content-section" id="settings">
+                <h1 class="page-title">Paramètres</h1>
+
+                <div class="settings-container">
+                    <!-- Informations personnelles -->
+                    <div class="settings-section">
+                        <h3 class="section-title-small">Informations personnelles</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nom complet</label>
+                                <input type="text" value="Jean Dupont">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" value="jean.dupont@email.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Téléphone</label>
+                                <input type="tel" value="+229 XX XX XX XX">
+                            </div>
+                            <div class="form-group">
+                                <label>Ville</label>
+                                <input type="text" value="Cotonou">
+                            </div>
+                        </div>
+                        <button class="save-btn" onclick="saveSettings('info')">💾 Enregistrer les
+                            modifications</button>
+                    </div>
+
+                    <!-- Changer le mot de passe -->
+                    <div class="settings-section">
+                        <h3 class="section-title-small">Sécurité</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Mot de passe actuel</label>
+                                <input type="password" placeholder="••••••••">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nouveau mot de passe</label>
+                                <input type="password" placeholder="••••••••">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirmer le mot de passe</label>
+                                <input type="password" placeholder="••••••••">
+                            </div>
+                        </div>
+                        <button class="save-btn" onclick="saveSettings('password')">🔒 Changer le mot de passe</button>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="settings-section">
+                        <h3 class="section-title-small">Notifications</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="checkbox-item"
+                                style="border: 1.5px solid var(--border); padding: 1rem; border-radius: 8px;">
+                                <input type="checkbox" id="notif1" checked>
+                                <label for="notif1">Recevoir des emails pour les nouveaux messages</label>
+                            </div>
+                            <div class="checkbox-item"
+                                style="border: 1.5px solid var(--border); padding: 1rem; border-radius: 8px;">
+                                <input type="checkbox" id="notif2" checked>
+                                <label for="notif2">Notifications pour les nouvelles annonces</label>
+                            </div>
+                            <div class="checkbox-item"
+                                style="border: 1.5px solid var(--border); padding: 1rem; border-radius: 8px;">
+                                <input type="checkbox" id="notif3">
+                                <label for="notif3">Newsletter hebdomadaire</label>
+                            </div>
+                        </div>
+                        <button class="save-btn" style="margin-top: 1rem;" onclick="saveSettings('notifications')">🔔
+                            Enregistrer les préférences</button>
+                    </div>
+
+                    <!-- Supprimer le compte -->
+                    <div class="settings-section" style="border-bottom: none;">
+                        <h3 class="section-title-small">Zone dangereuse</h3>
+                        <p style="color: var(--gray-text); margin-bottom: 1rem;">La suppression de votre compte est
+                            définitive et irréversible.</p>
+                        <button class="logout-btn"
+                            style="background: rgba(239, 68, 68, 0.1); border-color: var(--red); margin-top: 0;"
+                            onclick="deleteAccount()">
+                            🗑️ Supprimer mon compte
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/script_tablebord.js"></script>
+</body>
+
+</html>

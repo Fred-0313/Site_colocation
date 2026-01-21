@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription_Connexion - Xá Mì</title>
+    <link rel="stylesheet" href="css/style_inscription.css">
+
+</head>
+
+<body>
+    <div class="auth-container">
+        <!-- LEFT SIDE: BRANDING -->
+        <div class="auth-branding">
+            <div class="logo-large">Xá Mì</div>
+            <h2 class="branding-title">Trouvez votre bien idéal au Bénin</h2>
+            <p class="branding-text">
+                Rejoignez des milliers d'utilisateurs qui font confiance à Xá Mì
+                pour leurs transactions immobilières.
+            </p>
+            <ul class="branding-features">
+                <li>Accès à plus de 2,000+ annonces vérifiées</li>
+                <li>Publication gratuite de vos biens</li>
+                <li>Messagerie sécurisée avec les propriétaires</li>
+                <li>Paiements en ligne sécurisés</li>
+                <li>Support client disponible 7j/7</li>
+            </ul>
+        </div>
+
+        <!-- RIGHT SIDE: FORMS -->
+        <div class="auth-forms">
+            <a href="Page_acceuil.html" class="back-home">← Retour à l'accueil</a>
+
+            <!-- LOGIN FORM -->
+            <div class="form-container active" id="loginForm">
+                <div class="form-header">
+                    <h1 class="form-title">Bon retour !</h1>
+                    <p class="form-subtitle">
+                        Connectez-vous pour accéder à votre compte
+                    </p>
+                </div>
+
+                <div class="success-message" id="loginSuccess">
+                    ✓ Connexion réussie ! Redirection en cours...
+                </div>
+
+                <form onsubmit="return handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Adresse email</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="loginEmail" class="form-input" placeholder="vous@exemple.com"
+                                required>
+                        </div>
+                        <span class="error-message" id="loginEmailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Mot de passe</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="loginPassword" class="form-input" placeholder="••••••••"
+                                required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                                👁️
+                            </button>
+                        </div>
+                        <span class="error-message" id="loginPasswordError"></span>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Se souvenir de moi</label>
+                    </div>
+
+                    <div class="forgot-password">
+                        <button type="button" class="forgot-link" onclick="showForgotPassword()">Mot de passe oublié
+                            ?</button>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="loginBtn">
+                        Se connecter
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span class="divider-text">ou continuer avec</span>
+                </div>
+
+                <div class="social-buttons">
+                    <button type="button" class="btn-social" onclick="socialLogin('google')">
+                        <span>🔵</span>
+                        <span>Continuer avec Google</span>
+                    </button>
+                    <button type="button" class="btn-social" onclick="socialLogin('facebook')">
+                        <span>📘</span>
+                        <span>Continuer avec Facebook</span>
+                    </button>
+                </div>
+
+                <div class="form-switch">
+                    Vous n'avez pas de compte ?
+                    <button type="button" class="switch-link" onclick="switchForm('register')">S'inscrire</button>
+                </div>
+            </div>
+
+            <!-- REGISTER FORM -->
+            <div class="form-container" id="registerForm">
+                <div class="form-header">
+                    <h1 class="form-title">Créer un compte</h1>
+                    <p class="form-subtitle">Rejoignez Xá Mì gratuitement</p>
+                </div>
+
+                <div class="success-message" id="registerSuccess">
+                    ✓ Compte créé avec succès ! Vérifiez votre email.
+                </div>
+
+                <form onsubmit="return handleRegister(event)">
+                    <div class="form-group">
+                        <label for="registerName">Nom complet</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">👤</span>
+                            <input type="text" id="registerName" class="form-input" placeholder="Jean Dupont" required>
+                        </div>
+                        <span class="error-message" id="registerNameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerEmail">Adresse email</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="registerEmail" class="form-input" placeholder="vous@exemple.com"
+                                required>
+                        </div>
+                        <span class="error-message" id="registerEmailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPhone">Téléphone</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📱</span>
+                            <input type="tel" id="registerPhone" class="form-input" placeholder="+229 XX XX XX XX"
+                                required>
+                        </div>
+                        <span class="error-message" id="registerPhoneError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPassword">Mot de passe</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="registerPassword" class="form-input" placeholder="••••••••"
+                                required minlength="8">
+                            <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">
+                                👁️
+                            </button>
+                        </div>
+                        <span class="error-message" id="registerPasswordError">
+                            Le mot de passe doit contenir au moins 8 caractères
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPasswordConfirm">Confirmer le mot de passe</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="registerPasswordConfirm" class="form-input"
+                                placeholder="••••••••" required>
+                            <button type="button" class="password-toggle"
+                                onclick="togglePassword('registerPasswordConfirm')">
+                                👁️
+                            </button>
+                        </div>
+                        <span class="error-message" id="registerPasswordConfirmError"></span>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="acceptTerms" required>
+                        <label for="acceptTerms">
+                            J'accepte les
+                            <a href="#" class="form-link">conditions d'utilisation</a> et la
+                            <a href="#" class="form-link">politique de confidentialité</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="registerBtn">
+                        Créer mon compte
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span class="divider-text">ou s'inscrire avec</span>
+                </div>
+
+                <div class="social-buttons">
+                    <button type="button" class="btn-social" onclick="socialLogin('google')">
+                        <span>🔵</span>
+                        <span>S'inscrire avec Google</span>
+                    </button>
+                    <button type="button" class="btn-social" onclick="socialLogin('facebook')">
+                        <span>📘</span>
+                        <span>S'inscrire avec Facebook</span>
+                    </button>
+                </div>
+
+                <div class="form-switch">
+                    Vous avez déjà un compte ?
+                    <button type="button" class="switch-link" onclick="switchForm('login')">Se connecter</button>
+                </div>
+            </div>
+
+            <!-- FORGOT PASSWORD FORM -->
+            <div class="form-container" id="forgotPasswordForm">
+                <div class="form-header">
+                    <h1 class="form-title">Mot de passe oublié ?</h1>
+                    <p class="form-subtitle">
+                        Entrez votre email pour réinitialiser votre mot de passe
+                    </p>
+                </div>
+
+                <div class="success-message" id="forgotSuccess">
+                    ✓ Email envoyé ! Vérifiez votre boîte de réception.
+                </div>
+
+                <form onsubmit="return handleForgotPassword(event)">
+                    <div class="form-group">
+                        <label for="forgotEmail">Adresse email</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="forgotEmail" class="form-input" placeholder="vous@exemple.com"
+                                required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="forgotBtn">
+                        Envoyer le lien de réinitialisation
+                    </button>
+                </form>
+
+                <div class="form-switch">
+                    <button type="button" switch-link onclick="switchForm('login')">← Retour à la connexion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.inscription.js"></script>
+</body>
+
+</html>

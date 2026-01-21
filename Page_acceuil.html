@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xá Mì- Trouvez votre bien idéal au Bénin</title>
+    <link rel="stylesheet" href="css/style_accueil.css">
+</head>
+<body>
+<header>
+    <nav>
+        <!-- Logo de la plateforme -->
+        <div class="logo">
+            <img src="img/Img_logo.png" alt="Xà mi">
+        </div>
+        <!-- Menu de navigation (masqué sur mobile) -->
+        <div class="header-container">
+
+            <ul class="nav-menu">
+                <li><a href="#locations">Locations</a></li>
+                <li><a href="#colocations">Colocations</a></li>
+                <li><a href="#coworking">Coworking</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <a href="inscription.html" class="btn btn-outline">Connexion</a>
+                <a href="inscription.html" class="btn btn-outline">Inscription</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- ===HERO - SECTION PRINCIPALE AVEC RECHERCHE===== -->
+<section class="hero">
+    <div class="hero-content">
+        <!-- Titre et slogan -->
+        <h1>Vivre, partager,entreprendre.</h1>
+        <p>Avec Xà Mi,trouvez votre chambre,colocation, espace de coworking ou bureau privé, partout au Bénin</p>
+
+        <!-- Barre de recherche intégrée -->
+        <div class="search-container">
+            <form class="search-form">
+                <!-- Champ de localisation -->
+                <input type="text" placeholder="🔍 Ville ou quartier..." id="searchLocation">
+
+                <!-- Sélecteur de type de bien -->
+                <select id="searchType">
+                    <option value="">Type de bien</option>
+                    <option value="appartement">Appartement</option>
+                    <option value="maison">Maison</option>
+                    <option value=" bureau">Bureau</option>
+                    <option value="Colocation">Colocation</option>
+                    <option value="Colocataire">colocataire</option>
+                    <option value="Coworking">Coworking</option>
+                    <option value="Chambre">Chambre</option>
+                </select>
+
+                <!-- Bouton de recherche -->
+                <button type="submit" class="btn-search">🔍 Rechercher</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ======ONGLETS DE CATÉGORIES========= -->
+<section class="category-tabs">
+    <div class="tabs-container">
+        <!-- Onglet actif par défaut -->
+        <div class="tab active">
+            Maisons à louer <span class="tab-count">(245)</span>
+        </div>
+
+        <!-- Autres onglets -->
+        <div class="tab">Appartements<span class="tab-count">(189)</span></div>
+        <div class="tab">Colocataires<span class="tab-count">(156)</span></div>
+        <div class="tab">Colocations<span class="tab-count">(78)</span></div>
+        <div class="tab">Chambres<span class="tab-count">(234)</span></div>
+        <div class="tab"> Coworking<span class="tab-count">(40)</span></div>
+    </div>
+</section>
+
+<!-- =======SECTION ANNONCES/PROPRIÉTÉS========== -->
+<section class="properties">
+    <!-- En-tête de la section -->
+    <div class="section-header">
+        <h2 class="section-title">Annonces récentes</h2>
+        <p class="section-subtitle">
+            Découvrez les dernières opportunités immobilières disponibles à
+            travers tout le Bénin
+        </p>
+    </div>
+
+    <!-- Grille des annonces -->
+    <div class="properties-grid">
+
+        <!-- ===== ANNONCE 1 - Villa moderne ===== -->
+        <div class="property-card">
+            <!-- Image avec emoji placeholder -->
+            <div class="property-image">
+                🏠
+                <!-- Bouton favori (cœur vide par défaut) -->
+                <button type="button" class="favorite-btn">♡</button>
+                <!-- Badge de prix -->
+                <div class="property-price">850 000 FCFA</div>
+            </div>
+            <!-- Contenu textuel de l'annonce -->
+            <div class="property-content">
+                <h3 class="property-title">Villa moderne à Cotonou</h3>
+                <div class="property-location">📍 Fidjrossè, Cotonou</div>
+                <!-- Détails techniques -->
+                <div class="property-details">
+                    <div class="property-detail">🛏️ 4 ch</div>
+                    <div class="property-detail">📐 180 m²</div>
+                </div>
+                <!-- Bouton d'action -->
+                <a href="detail_bien.html" class="btn-details">Demander plus d'infos </a>
+            </div>
+        </div>
+
+        <!-- ===== ANNONCE 2 - Appartement ===== -->
+        <div class="property-card">
+            <div class="property-image">
+                🏢
+                <button type="button" class="favorite-btn">♡</button>
+                <div class="property-price">450 000 FCFA</div>
+            </div>
+            <div class="property-content">
+                <h3 class="property-title">Appartement 3 pièces</h3>
+                <div class="property-location">📍 Centre-ville, Porto-Novo</div>
+                <div class="property-details">
+                    <div class="property-detail">🛏️ 3 ch</div>
+                    <div class="property-detail">📐 95 m²</div>
+                </div>
+                <a href="detail_bien.html" class="btn-details">Demander plus d'infos </a>
+            </div>
+        </div>
+        <!-- ===== ANNONCE 3 - Terrain ===== -->
+        <div class="property-card">
+            <div class="property-image">
+                🌳
+                <button type="button" class="favorite-btn">♡</button>
+                <div class="property-price">12 500 000 FCFA</div>
+            </div>
+            <div class="property-content">
+                <h3 class="property-title">Terrain constructible</h3>
+                <div class="property-location">📍 Zone résidentielle, Parakou</div>
+                <div class="property-details">
+                    <div class="property-detail">📐 500 m²</div>
+                    <div class="property-detail">📄 Titre foncier</div>
+                </div>
+                <a href="detail_bien.html" class="btn-details">Demander plus d'infos </a>
+            </div>
+        </div>
+
+        <!-- ===== ANNONCE 4 - Véhicule (exemple diversifié) ===== -->
+        <div class="property-card">
+            <div class="property-image">
+                🚗
+                <button type="button" class="favorite-btn">♡</button>
+                <div class="property-price">4 200 000 FCFA</div>
+            </div>
+            <div class="property-content">
+                <h3 class="property-title">Toyota Corolla 2019</h3>
+                <div class="property-location">📍 Akpakpa, Cotonou</div>
+                <div class="property-details">
+                    <div class="property-detail">📅 2026</div>
+                    <div class="property-detail">🛣️ 45 000 km</div>
+                </div>
+                <a href="detail_bien.html" class="btn-details">Demander plus d'infos </a>
+            </div>
+        </div>
+
+        <!-- ===== ANNONCE 5 - Colocation ===== -->
+        <div class="property-card">
+            <div class="property-image">
+                🛏️
+                <button type="button" class="favorite-btn">♡</button>
+                <div class="property-price">120 000 FCFA</div>
+            </div>
+            <div class="property-content">
+                <h3 class="property-title">Chambre en colocation</h3>
+                <div class="property-location">📍 Université, Abomey-Calavi</div>
+                <div class="property-details">
+                    <div class="property-detail">👥 3 colocataires</div>
+                    <div class="property-detail">📐 15 m²</div>
+                </div>
+                <a href="detail_bien.html" class="btn-details">Demander plus d'infos </a>
+            </div>
+        </div>
+
+        <!-- ===== ANNONCE 6 - Bureau ===== -->
+        <div class="property-card">
+            <div class="property-image">
+                🏢
+                <button type="button" class="favorite-btn">♡</button>
+                <div class="property-price">650 000 FCFA</div>
+            </div>
+            <div class="property-content">
+                <h3 class="property-title">Bureau commercial</h3>
+                <div class="property-location">📍 Centre commercial, Bohicon</div>
+                <div class="property-details">
+                    <div class="property-detail">🏢 2e étage</div>
+                    <div class="property-detail">📐 75 m²</div>
+                </div>
+                <a href="detail_bien.html" class="btn-details">Demander plus d'infos </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- =======SECTION CARTE INTERACTIVE============== -->
+<section class="map-section">
+    <div class="map-container">
+        <h2 class="section-title">Explorez par localisation</h2>
+        <p class="section-subtitle">
+            Découvrez les biens disponibles à travers tout le Bénin grâce à notre
+            carte interactive
+        </p>
+
+        <!-- Placeholder pour future intégration de carte (Google Maps, Mapbox, etc.) -->
+        <div class="map-placeholder">
+            <div class="map-overlay">
+                🗺️ Carte interactive des biens disponibles
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =====SECTION "POURQUOI CHOISIR XÁ MÌ?"============ -->
+<section class="why-choose">
+    <div class="section-header">
+        <h2 class="section-title">Pourquoi choisir Xá Mì?</h2>
+        <p class="section-subtitle">
+            Une plateforme moderne et sécurisée pour toutes vos transactions
+            immobilières
+        </p>
+    </div>
+
+    <!-- Grille des fonctionnalités clés -->
+    <div class="features-grid">
+
+        <!-- Fonctionnalité 1: Paiement sécurisé -->
+        <div class="feature-card">
+            <div class="feature-icon blue">🛡️</div>
+            <h3 class="feature-title">Paiement sécurisé</h3>
+            <p class="feature-description">
+                Transactions protégées avec nos partenaires bancaires locaux et
+                internationaux
+            </p>
+        </div>
+
+        <!-- Fonctionnalité 2: Géolocalisation -->
+        <div class="feature-card">
+            <div class="feature-icon green">📍</div>
+            <h3 class="feature-title">Géolocalisation précise</h3>
+            <p class="feature-description">
+                Localisation exacte de tous les biens avec cartes interactives
+                détaillées
+            </p>
+        </div>
+
+        <!-- Fonctionnalité 3: Messagerie -->
+        <div class="feature-card">
+            <div class="feature-icon blue">💬</div>
+            <h3 class="feature-title">Messagerie intégrée</h3>
+            <p class="feature-description">
+                Communication directe et sécurisée entre propriétaires et locataires
+            </p>
+        </div>
+
+        <!-- Fonctionnalité 4: Gestion colocation -->
+        <div class="feature-card">
+            <div class="feature-icon purple">👥</div>
+            <h3 class="feature-title">Gestion de colocation</h3>
+            <p class="feature-description">
+                Système avancé pour gérer les colocations et partager les frais
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- =========SECTION STATISTIQUES=============== -->
+<section class="stats">
+    <div class="stats-grid">
+
+        <!-- Stat 1: Annonces -->
+        <div class="stat-card">
+            <!-- data-target: valeur cible pour l'animation JavaScript -->
+            <div class="stat-number" data-target="2450">0</div>
+            <div class="stat-label">Annonces actives</div>
+        </div>
+
+        <!-- Stat 2: Utilisateurs -->
+        <div class="stat-card">
+            <div class="stat-number" data-target="15000">0</div>
+            <div class="stat-label">Utilisateurs actifs</div>
+        </div>
+
+        <!-- Stat 3: Transactions -->
+        <div class="stat-card">
+            <div class="stat-number" data-target="1200">0</div>
+            <div class="stat-label">Transactions réussies</div>
+        </div>
+
+        <!-- Stat 4: Départements -->
+        <div class="stat-card">
+            <div class="stat-number" data-target="12">0</div>
+            <div class="stat-label">Départements couverts</div>
+        </div>
+    </div>
+</section>
+
+<!-- =======SECTION TÉMOIGNAGES======== -->
+<section class="testimonials">
+    <div class="section-header">
+        <h2 class="section-title">Ce que disent nos utilisateurs</h2>
+    </div>
+
+    <div class="testimonials-grid">
+
+        <!-- Témoignage 1 -->
+        <div class="testimonial-card">
+            <div class="testimonial-header">
+                <!-- Avatar avec initiales -->
+                <div class="testimonial-avatar">AD</div>
+                <div class="testimonial-info">
+                    <h4>Aïcha Dossou</h4>
+                    <p>Propriétaire</p>
+                </div>
+            </div>
+            <p class="testimonial-text">
+                "Grâce à BéninImmo, j'ai pu louer ma maison en moins d'une semaine.
+                La plateforme est très intuitive et les paiements sont sécurisés."
+            </p>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+
+        <!-- Témoignage 2 -->
+        <div class="testimonial-card">
+            <div class="testimonial-header">
+                <div class="testimonial-avatar">KM</div>
+                <div class="testimonial-info">
+                    <h4>Koffi Mensah</h4>
+                    <p>Étudiant</p>
+                </div>
+            </div>
+            <p class="testimonial-text">
+                "J'ai trouvé une excellente colocation près de l'université. Le
+                système de gestion des colocations est vraiment pratique."
+            </p>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+
+        <!-- Témoignage 3 -->
+        <div class="testimonial-card">
+            <div class="testimonial-header">
+                <div class="testimonial-avatar">MA</div>
+                <div class="testimonial-info">
+                    <h4>Marcel Agbodjan</h4>
+                    <p>Entrepreneur</p>
+                </div>
+            </div>
+            <p class="testimonial-text">
+                "La géolocalisation m'a aidé à trouver le bureau parfait pour mon
+                entreprise. Service client excellent et processus très fluide."
+            </p>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+    </div>
+</section>
+
+<!-- ======FOOTER - PIED DE PAGE============ -->
+<footer>
+    <div class="footer-content">
+
+        <!-- Colonne 1: À propos -->
+        <div class="footer-section">
+            <h3>Xà mi</h3>
+            <p>
+                La première plateforme immobilière digitale du Bénin. Trouvez,
+                louez, vendez en toute sécurité.
+            </p>
+            <!-- Liens réseaux sociaux -->
+            <div class="social-links">
+                <a href="#" class="social-link">📘</a>
+                <a href="#" class="social-link">🐦</a>
+                <a href="#" class="social-link">📷</a>
+                <a href="#" class="social-link">💼</a>
+            </div>
+        </div>
+
+        <!-- Colonne 2: Liens utiles -->
+        <div class="footer-section">
+            <h3>Liens utiles</h3>
+            <ul>
+                <li><a href="a_propos_de_nous.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#cgu">Conditions d'utilisation</a></li>
+                <li><a href="#politique">Politique de confidentialité</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </div>
+
+        <!-- Colonne 3: Catégories -->
+        <div class="footer-section">
+            <h3>Catégories</h3>
+            <ul>
+                <li><a href="#Location">Location</a></li>
+                <li><a href="#Colocation">Colocation</a></li>
+                <li><a href="#Chambre">Chambre</a></li>
+                <li><a href="#Bureau">Bureau</a></li>
+                <li><a href="#Chambre"> Chambre</a></li>
+            </ul>
+        </div>
+
+        <!-- Colonne 4: Villes -->
+        <div class="footer-section">
+            <h3>Villes principales</h3>
+            <ul>
+                <li><a href="#cotonou">Cotonou</a></li>
+                <li><a href="#portonovo">Porto-Novo</a></li>
+                <li><a href="#parakou">Parakou</a></li>
+                <li><a href="#abomey">Abomey-Calavi</a></li>
+                <li><a href="#bohicon">Bohicon</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p>&copy; 2026 Xá Mì. Tous droits réservés.</p>
+    </div>
+</footer>
+<script src="js/script_accueil.js"></script>
+</body>
+
+</html>

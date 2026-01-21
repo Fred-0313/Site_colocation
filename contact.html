@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Xá Mì</title>
+    <link rel="stylesheet" href="css/style_contact.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <a href="Page_acceuil.html" class="logo">Xá Mì</a>
+            <ul class="nav-menu">
+                <li><a href="Page_acceuil.html">Accueil</a></li>
+                <li><a href="search-results.html">Rechercher</a></li>
+                <li><a href="a_propos_de_nous.html">À propos</a></li>
+                <li><a href="contact.html" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- PAGE TABS -->
+    <div class="page-tabs">
+        <div class="tabs-container">
+            <button type="button" class="tab-btn active" onclick="showPage('contact')">📞 Contact</button>
+            <button type="button" class="tab-btn" onclick="showPage('faq')">❓ FAQ</button>
+            <button type="button" class="tab-btn" onclick="showPage('cgu')">📄 CGU</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- ==================== CONTACT PAGE ==================== -->
+        <div class="page-content active" id="contact">
+            <h1 class="page-title">Contactez-nous</h1>
+            <p class="page-subtitle">Notre équipe est à votre écoute pour répondre à toutes vos questions</p>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon">📍</div>
+                        <div class="info-content">
+                            <h3>Adresse</h3>
+                            <p>Quartier Fidjrossè, Rue 123<br>Cotonou, Bénin</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">📧</div>
+                        <div class="info-content">
+                            <h3>Email</h3>
+                            <p>contact@XáMì.bj<br>support@XáMì.bj</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">📱</div>
+                        <div class="info-content">
+                            <h3>Téléphone</h3>
+                            <p>+229 XX XX XX XX<br>+229 YY YY YY YY</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">🕐</div>
+                        <div class="info-content">
+                            <h3>Horaires</h3>
+                            <p>Lundi - Vendredi: 8h - 18h<br>Samedi: 9h - 13h</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2 style="margin-bottom: 1.5rem;">Envoyez-nous un message</h2>
+                    <form onsubmit="return handleContactSubmit(event)">
+                        <div class="form-group">
+                            <label class="form-label">Nom complet *
+                            <input type="text" class="form-input" placeholder="Jean Dupont" required>
+                            </label>
+                    </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email *
+                            <input type="email" class="form-input" placeholder="jean@exemple.com" required>
+                            </label>
+                    </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Téléphone
+                            <input type="tel" class="form-input" placeholder="+229 XX XX XX XX">
+                            </label>
+                    </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Sujet *
+                            <select class="form-select" required>
+                                <option value="">Choisissez un sujet</option>
+                                <option>Question générale</option>
+                                <option>Problème technique</option>
+                                <option>Signaler une annonce</option>
+                                <option>Partenariat</option>
+                                <option>Autre</option>
+                            </select>
+                        </label>
+                    </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Message *
+                            <textarea class="form-textarea" placeholder="Décrivez votre demande..." required></textarea>
+                            </label>
+                    </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            📤 Envoyer le message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== FAQ PAGE ==================== -->
+        <div class="page-content" id="faq">
+            <h1 class="page-title">Questions Fréquentes</h1>
+            <p class="page-subtitle">Trouvez rapidement des réponses à vos questions</p>
+
+            <div class="faq-search">
+                <input type="text" class="search-input" placeholder="🔍 Rechercher une question..."
+                    oninput="searchFAQ(this.value)">
+            </div>
+
+            <div class="faq-categories">
+                <div class="category-card" onclick="filterFAQ('general')">
+                    <div class="category-icon">🏠</div>
+                    <div class="category-title">Général</div>
+                    <div class="category-count">8 questions</div>
+                </div>
+
+                <div class="category-card" onclick="filterFAQ('location')">
+                    <div class="category-icon">🔑</div>
+                    <div class="category-title">Location</div>
+                    <div class="category-count">12 questions</div>
+                </div>
+
+                <div class="category-card" onclick="filterFAQ('paiement')">
+                    <div class="category-icon">💳</div>
+                    <div class="category-title">Paiement</div>
+                    <div class="category-count">6 questions</div>
+                </div>
+
+                <div class="category-card" onclick="filterFAQ('compte')">
+                    <div class="category-icon">👤</div>
+                    <div class="category-title">Mon compte</div>
+                    <div class="category-count">5 questions</div>
+                </div>
+            </div>
+
+            <div class="faq-list" id="faqList">
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Comment fonctionne Xá Mì ?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Xá Mì est une plateforme qui met en relation propriétaires et locataires. Vous pouvez rechercher
+                        des biens, publier des annonces gratuitement, et communiquer directement avec les propriétaires
+                        via notre messagerie sécurisée.
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Est-ce gratuit de publier une annonce ?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Oui ! La publication d'annonces est 100% gratuite sur Xá Mì. Nous ne facturons aucun frais pour
+                        publier ou gérer vos biens immobiliers.
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="location">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Comment réserver un bien ?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Pour réserver un bien : 1) Contactez le propriétaire via la messagerie, 2) Organisez une visite,
+                        3) Si le bien vous convient, effectuez le paiement sécurisé via notre plateforme avec Kkiapay.
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="location">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Puis-je visiter un bien avant de louer ?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolument ! Nous recommandons toujours de visiter un bien avant toute transaction. Contactez le
+                        propriétaire pour organiser une visite à un moment qui vous convient.
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="paiement">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Quels moyens de paiement acceptez-vous ?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Nous acceptons : Mobile Money (MTN, Moov), cartes bancaires (Visa, Mastercard), et Kkiapay
+                        Wallet. Tous les paiements sont sécurisés et cryptés.
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="paiement">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Les paiements sont-ils sécurisés ?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Oui, 100% sécurisés ! Nous utilisons Kkiapay, une solution de paiement certifiée et conforme aux
+                        normes de sécurité internationales. Vos données bancaires ne sont jamais stockées sur nos
+                        serveurs.
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="compte">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Comment créer un compte ?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Cliquez sur "Inscription" en haut de la page, remplissez le formulaire avec vos informations, et
+                        validez votre email. C'est tout ! Vous pouvez aussi vous inscrire via Google ou Facebook.
+                    </div>
+                </div>
+                <div class="faq-item" data-category="compte">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>J'ai oublié mon mot de passe, que faire ?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Sur la page de connexion, cliquez sur "Mot de passe oublié ?", entrez votre email, et vous
+                        recevrez un lien pour réinitialiser votre mot de passe.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== CGU PAGE ==================== -->
+        <div class="page-content" id="cgu">
+            <h1 class="page-title">Conditions Générales d'Utilisation</h1>
+            <p class="page-subtitle">Dernière mise à jour : 2 novembre 2025</p>
+
+            <div class="cgu-content">
+                <div class="cgu-toc">
+                    <h3>📋 Table des matières</h3>
+                    <ul>
+                        <li><a href="#article1">1. Objet</a></li>
+                        <li><a href="#article2">2. Définitions</a></li>
+                        <li><a href="#article3">3. Accès au service</a></li>
+                        <li><a href="#article4">4. Publication d'annonces</a></li>
+                        <li><a href="#article5">5. Transactions et paiements</a></li>
+                        <li><a href="#article6">6. Responsabilités</a></li>
+                        <li><a href="#article7">7. Propriété intellectuelle</a></li>
+                        <li><a href="#article8">8. Données personnelles</a></li>
+                        <li><a href="#article9">9. Modification des CGU</a></li>
+                        <li><a href="#article10">10. Loi applicable</a></li>
+                    </ul>
+                </div>
+
+                <div class="cgu-section" id="article1">
+                    <h2>1. Objet</h2>
+                    <p>
+                        Les présentes Conditions Générales d'Utilisation (ci-après "CGU") ont pour objet de définir les
+                        modalités et conditions d'utilisation de la plateforme BéninImmo ainsi que les droits et
+                        obligations des utilisateurs.
+                    </p>
+                    <p>
+                        Toute utilisation de la plateforme implique l'acceptation sans réserve des présentes CGU par
+                        l'utilisateur.
+                    </p>
+                </div>
+
+                <div class="cgu-section" id="article2">
+                    <h2>2. Définitions</h2>
+                    <ul>
+                        <li><strong>Plateforme</strong> : Désigne le site web et l'application mobile Xá Mì</li>
+                        <li><strong>Utilisateur</strong> : Toute personne utilisant la plateforme</li>
+                        <li><strong>Annonceur</strong> : Utilisateur publiant une annonce immobilière</li>
+                        <li><strong>Locataire/Acheteur</strong> : Utilisateur recherchant un bien</li>
+                        <li><strong>Bien</strong> : Tout bien immobilier ou véhicule proposé sur la plateforme</li>
+                    </ul>
+                </div>
+
+                <div class="cgu-section" id="article3">
+                    <h2>3. Accès au service</h2>
+                    <h3>3.1. Inscription</h3>
+                    <p>
+                        L'accès à certaines fonctionnalités de la plateforme nécessite la création d'un compte
+                        utilisateur. L'utilisateur s'engage à fournir des informations exactes et à les maintenir à
+                        jour.
+                    </p>
+
+                    <h3>3.2. Sécurité du compte</h3>
+                    <p>
+                        L'utilisateur est responsable de la confidentialité de ses identifiants. Toute utilisation du
+                        compte est réputée avoir été effectuée par son titulaire.
+                    </p>
+                </div>
+
+                <div class="cgu-section" id="article4">
+                    <h2>4. Publication d'annonces</h2>
+                    <h3>4.1. Contenu des annonces</h3>
+                    <p>
+                        L'annonceur s'engage à :
+                    </p>
+                    <ul>
+                        <li>Fournir des informations exactes et véridiques</li>
+                        <li>Publier des photos conformes au bien proposé</li>
+                        <li>Ne pas publier de contenu illégal, trompeur ou offensant</li>
+                        <li>Être propriétaire ou mandataire du bien proposé</li>
+                    </ul>
+
+                    <h3>4.2. Modération</h3>
+                    <p>
+                        Xá Mì se réserve le droit de modérer, modifier ou supprimer toute annonce non conforme aux
+                        présentes CGU, sans préavis ni justification.
+                    </p>
+                </div>
+
+                <div class="cgu-section" id="article5">
+                    <h2>5. Transactions et paiements</h2>
+                    <h3>5.1. Rôle de la plateforme</h3>
+                    <p>
+                        Xá Mì agit comme intermédiaire de mise en relation. La plateforme n'est pas partie aux contrats
+                        conclus entre annonceurs et locataires/acheteurs.
+                    </p>
+
+                    <h3>5.2. Paiements sécurisés</h3>
+                    <p>
+                        Les paiements effectués via la plateforme sont traités par notre partenaire Kkiapay. Xá Mì
+                        ne conserve aucune donnée bancaire.
+                    </p>
+                </div>
+
+                <div class="cgu-section" id="article6">
+                    <h2>6. Responsabilités</h2>
+                    <h3>6.1. Responsabilité de BéninImmo</h3>
+                    <p>
+                        Xá Mì met en œuvre tous les moyens pour assurer un service de qualité. Toutefois, la plateforme
+                        ne garantit pas :
+                    </p>
+                    <ul>
+                        <li>L'exactitude des annonces publiées</li>
+                        <li>La disponibilité continue du service</li>
+                        <li>L'absence d'erreurs ou de bugs</li>
+                    </ul>
+
+                    <h3>6.2. Responsabilité des utilisateurs</h3>
+                    <p>
+                        Les utilisateurs sont seuls responsables de :
+                    </p>
+                    <ul>
+                        <li>L'exactitude des informations fournies</li>
+                        <li>Le respect de la législation en vigueur</li>
+                        <li>Les transactions conclues via la plateforme</li>
+                    </ul>
+                </div>
+
+                <div class="cgu-section" id="article7">
+                    <h2>7. Propriété intellectuelle</h2>
+                    <p>
+                        L'ensemble des éléments de la plateforme (textes, graphismes, logiciels, etc.) sont la propriété
+                        exclusive de Xá Mì. Toute reproduction sans autorisation est interdite.
+                    </p>
+                    <p>
+                        En publiant du contenu sur la plateforme, l'utilisateur accorde à Xá Mì une licence non
+                        exclusive d'utilisation, de reproduction et de diffusion de ce contenu.
+                    </p>
+                </div>
+
+                <div class="cgu-section" id="article8">
+                    <h2>8. Données personnelles</h2>
+                    <p>
+                        Les données personnelles collectées font l'objet d'un traitement informatique destiné à :
+                    </p>
+                    <ul>
+                        <li>La gestion des comptes utilisateurs</li>
+                        <li>La publication et gestion des annonces</li>
+                        <li>L'amélioration de nos services</li>
+                        <li>L'envoi de communications (avec consentement)</li>
+                    </ul>
+                    <p>
+                        Conformément à la loi, les utilisateurs disposent d'un droit d'accès, de rectification et de
+                        suppression de leurs données. Pour exercer ces droits, contactez : contact@beninimmo.bj
+                    </p>
+                </div>
+
+                <div class="cgu-section" id="article9">
+                    <h2>9. Modification des CGU</h2>
+                    <p>
+                        Xá Mì se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront
+                        informés de toute modification importante par email ou via la plateforme.
+                    </p>
+                    <p>
+                        L'utilisation continue de la plateforme après modification vaut acceptation des nouvelles CGU.
+                    </p>
+                </div>
+
+                <div class="cgu-section" id="article10">
+                    <h2>10. Loi applicable et juridiction</h2>
+                    <p>
+                        Les présentes CGU sont régies par le droit béninois. En cas de litige, et après tentative de
+                        règlement amiable, les tribunaux de Cotonou seront seuls compétents.
+                    </p>
+                </div>
+
+                <div class="cgu-section">
+                    <h2>11. Contact</h2>
+                    <p>
+                        Pour toute question concernant les présentes CGU, vous pouvez nous contacter :
+                    </p>
+                    <ul>
+                        <li>Email : legal@XáMì.bj</li>
+                        <li>Téléphone : +229 XX XX XX XX</li>
+                        <li>Adresse : Quartier Fidjrossè, Rue 123, Cotonou, Bénin</li>
+                    </ul>
+                </div>
+
+                <p class="last-update">
+                    Dernière mise à jour : 2 novembre 2025<br>
+                    Version 1.0
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Xá Mì. Tous droits réservés.</p>
+    </footer>
+    <script src="js/script_contact.js"></script>
+</body>
+
+</html>

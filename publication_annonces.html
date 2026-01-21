@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publier une annonce - Xà mi</title>
+    <link rel="stylesheet" href="css/style_publication_annonces.css">
+</head>
+
+<body>
+    <!-- ==================== HEADER ==================== -->
+    <header>
+        <div class="header-container">
+            <a href="Page_acceuil.html" class="logo">Xà mi</a>
+            <ul class="nav-menu">
+                <li><a href="Page_acceuil.html">Accueil</a></li>
+                <li><a href="#locations">Locations</a></li>
+                <li><a href="#colocations">Colocations</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN CONTAINER ==================== -->
+    <div class="page-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Publier une annonce</h1>
+            <p class="page-subtitle">Remplissez le formulaire pour publier votre bien sur BéninImmo</p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="progress-container">
+            <div class="progress-steps">
+                <div class="progress-line" id="progressLine" style="width: 0%;"></div>
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Type de bien</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Informations</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Photos</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Localisation</div>
+                </div>
+                <div class="step" data-step="5">
+                    <div class="step-circle">5</div>
+                    <div class="step-label">Confirmation</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <form id="publishForm">
+                <!-- STEP 1: Type de bien -->
+                <div class="form-section active" data-section="1">
+                    <h2 class="section-title">Quel type de bien souhaitez-vous publier ?</h2>
+                    <div class="type-grid">
+                        <div class="type-card" data-type="appartement">
+                            <div class="type-icon">🏢</div>
+                            <div class="type-name">Appartement</div>
+                        </div>
+                        <div class="type-card" data-type="maison">
+                            <div class="type-icon">🏠</div>
+                            <div class="type-name">Maison</div>
+                        </div>
+                        <div class="type-card" data-type="studio">
+                            <div class="type-icon">🏘️</div>
+                            <div class="type-name">Studio</div>
+                        </div>
+                        <div class="type-card" data-type="terrain">
+                            <div class="type-icon">🌳</div>
+                            <div class="type-name">Terrain</div>
+                        </div>
+                        <div class="type-card" data-type="bureau">
+                            <div class="type-icon">🏢</div>
+                            <div class="type-name">Bureau</div>
+                        </div>
+                        <div class="type-card" data-type="vehicule">
+                            <div class="type-icon">🚗</div>
+                            <div class="type-name">Véhicule</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Type de transaction <span class="required">*</span></label>
+                        <select id="transactionType" required>
+                            <option value="">Sélectionnez...</option>
+                            <option value="location">Location</option>
+                            <option value="vente">Vente</option>
+                            <option value="colocation">Colocation</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Informations -->
+                <div class="form-section" data-section="2">
+                    <h2 class="section-title">Informations du bien</h2>
+                    <div class="form-group">
+                        <label>Titre de l'annonce <span class="required">*</span></label>
+                        <input type="text" placeholder="Ex: Villa moderne avec jardin à Cotonou" required>
+                        <span class="form-help">Soyez précis et attractif</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Prix <span class="required">*</span></label>
+                            <input type="number" placeholder="Ex: 850000" required>
+                            <span class="form-help">Prix en FCFA</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Période</label>
+                            <select>
+                                <option value="mois">Par mois</option>
+                                <option value="an">Par an</option>
+                                <option value="unique">Prix fixe</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre de chambres</label>
+                            <input type="number" min="0" placeholder="Ex: 4">
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre de salles de bain</label>
+                            <input type="number" min="0" placeholder="Ex: 3">
+                        </div>
+                        <div class="form-group">
+                            <label>Surface (m²)</label>
+                            <input type="number" min="0" placeholder="Ex: 180">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description détaillée <span class="required">*</span></label>
+                        <textarea placeholder="Décrivez votre bien en détail..." required></textarea>
+                        <span class="form-help">Minimum 50 caractères</span>
+                    </div>
+
+                    <h3 style="margin: 2rem 0 1rem; font-size: 1.2rem;">Équipements et commodités</h3>
+                    <div class="features-grid">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feat1">
+                            <label for="feat1">Climatisation</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feat2">
+                            <label for="feat2">Cuisine équipée</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feat3">
+                            <label for="feat3">Parking</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feat4">
+                            <label for="feat4">Jardin</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feat5">
+                            <label for="feat5">Piscine</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feat6">
+                            <label for="feat6">Sécurité 24h/24</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Photos -->
+                <div class="form-section" data-section="3">
+                    <h2 class="section-title">Photos du bien</h2>
+                    <p style="color: var(--gray-text); margin-bottom: 1.5rem;">Ajoutez au moins 3 photos de qualité</p>
+                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                        <div class="upload-icon">📷</div>
+                        <div class="upload-text">Cliquez pour ajouter des photos</div>
+                        <div class="upload-hint">ou glissez-déposez vos images (max 10 Mo par image)</div>
+                    </div>
+                    <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+
+                    <div class="image-preview-grid" id="imagePreview">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </div>
+
+                <!-- STEP 4: Localisation -->
+                <div class="form-section" data-section="4">
+                    <h2 class="section-title">Localisation du bien</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ville <span class="required">*</span></label>
+                            <select required>
+                                <option value="">Sélectionnez une ville</option>
+                                <option value="cotonou">Cotonou</option>
+                                <option value="porto-novo">Porto-Novo</option>
+                                <option value="parakou">Parakou</option>
+                                <option value="abomey-calavi">Abomey-Calavi</option>
+                                <option value="bohicon">Bohicon</option>
+                                <option value="djougou">Djougou</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Quartier <span class="required">*</span></label>
+                            <input type="text" placeholder="Ex: Fidjrossè" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Adresse complète</label>
+                        <input type="text" placeholder="Ex: Rue 123, près du marché">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cliquez sur la carte pour définir la position exacte</label>
+                        <div class="map-selector" id="mapSelector">
+                            <div class="map-placeholder">
+                                <div class="map-placeholder-icon">🗺️</div>
+                                <p style="color: var(--gray-text); margin-top: 1rem;">Cliquez sur la carte pour
+                                    positionner votre bien</p>
+                            </div>
+                            <div class="coordinates-display" id="coordinates">
+                                📍 Lat: 6.3654, Lng: 2.4183
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Confirmation -->
+                <div class="form-section" data-section="5">
+                    <h2 class="section-title">Récapitulatif de votre annonce</h2>
+                    <div class="summary-grid">
+                        <div class="summary-section">
+                            <h3>📋 Informations générales</h3>
+                            <div class="summary-item">
+                                <span class="summary-label">Type de bien</span>
+                                <span class="summary-value" id="summaryType">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Transaction</span>
+                                <span class="summary-value" id="summaryTransaction">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Prix</span>
+                                <span class="summary-value" id="summaryPrice">-</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-section">
+                            <h3>🏠 Caractéristiques</h3>
+                            <div class="summary-item">
+                                <span class="summary-label">Chambres</span>
+                                <span class="summary-value">4</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Salles de bain</span>
+                                <span class="summary-value">3</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Surface</span>
+                                <span class="summary-value">180 m²</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-section">
+                            <h3>📍 Localisation</h3>
+                            <div class="summary-item">
+                                <span class="summary-label">Ville</span>
+                                <span class="summary-value">Cotonou</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Quartier</span>
+                                <span class="summary-value">Fidjrossè</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-section">
+                            <h3>📷 Photos</h3>
+                            <div class="summary-item">
+                                <span class="summary-label">Nombre de photos</span>
+                                <span class="summary-value" id="summaryPhotos">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        style="margin-top: 2rem; padding: 1.5rem; background: rgba(34, 197, 94, 0.1); border-left: 4px solid var(--green); border-radius: 6px;">
+                        <p style="color: var(--dark-text); font-weight: 600;">✓ Votre annonce est prête à être publiée !
+                        </p>
+                        <p style="color: var(--gray-text); font-size: 0.9rem; margin-top: 0.5rem;">Elle sera visible
+                            après validation par notre équipe (généralement sous 24h).</p>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">
+                        ← Précédent
+                    </button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">
+                        Suivant →
+                    </button>
+                    <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">
+                        ✓ Publier l'annonce
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/script_publication_annonces.js"></script>
+</body>
+
+</html>
