@@ -136,9 +136,9 @@
     }
 
     .logo img {
-      height: 85px;
+      height: 100px;
       /* Ajuste selon la taille de ton logo */
-      width: auto;
+      width: 70px;
       object-fit:contain;
       transition: transform 0.3s ease;
       padding: 0px 0px; /* Ajoute de l'espace autour */

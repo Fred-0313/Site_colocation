@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informations de base - SpacePro Bénin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* ==================== HEADER ==================== */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ==================== PROGRESS BAR ==================== */
+        .progress-container {
+            background-color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .progress-steps {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #e0e0e0;
+            z-index: 0;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 2px;
+            background-color: #a65e2e;
+            z-index: 1;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            background-color: white;
+            padding: 0 10px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .step.active .step-number {
+            background-color: #a65e2e;
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background-color: #a65e2e;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .step.active .step-label {
+            color: #a65e2e;
+            font-weight: 600;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        main {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 3rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .step-indicator {
+            background-color: #fff3e0;
+            border-left: 4px solid #a65e2e;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+        }
+
+        .step-indicator strong {
+            color: #a65e2e;
+        }
+
+        /* ==================== FORM SECTIONS ==================== */
+        .form-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #a65e2e;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .required {
+            color: #ff6b35;
+        }
+
+        /* ==================== SELECT DROPDOWN ==================== */
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #a65e2e;
+        }
+
+        /* ==================== RADIO BUTTONS ==================== */
+        .radio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .radio-option {
+            background-color: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .radio-option:hover {
+            border-color: #1B2B48;
+            background-color: #e3f2fd;
+        }
+
+        .radio-option.selected {
+            border-color: #1B2B48;
+            background-color: #e3f2fd;
+        }
+
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #1B2B48;
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 10px 40px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .btn-primary {
+            background-color: #1B2B48;
+            color: white;
+            border-color: #1B2B48;
+        }
+
+        .btn-primary:hover {
+            background-color: #0f1a2e;
+            border-color: #0f1a2e;
+        }
+
+        .btn-secondary {
+            background-color: #f5f5f5;
+            color: #333;
+            border-color: #ccc;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e8e8e8;
+            border-color: #999;
+        }
+
+        /* ==================== TIPS BOX ==================== */
+        .tips-box {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+
+        .tips-box h3 {
+            color: #f57c00;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .tips-box ul {
+            margin-left: 1.5rem;
+        }
+
+        .tips-box li {
+            margin-bottom: 0.5rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .radio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .btn {
+                padding: 10px 30px;
+                font-size: 0.9rem;
+            }
+
+            .progress-steps {
+                padding: 0 1rem;
+            }
+
+            .step-label {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            main {
+                padding: 0 1rem;
+            }
+
+            .form-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .radio-option {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+         
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-steps">
+            <div class="progress-line" id="progressLine"></div>
+            <div class="step active">
+                <div class="step-number">1</div>
+                <div class="step-label">Informations</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-label">Préférences</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="form-container">
+            <h1>Démarrez votre recherche</h1>
+            <p class="subtitle">Commencez par nous dire ce que vous recherchez</p>
+
+            <div class="step-indicator">
+                <strong>Étape 1 sur 2</strong> - Informations de base
+            </div>
+
+            <form id="searchForm">
+                <!-- Section 1: Type de recherche -->
+                <div class="form-section">
+                    <h2 class="section-title">Type de logement</h2>
+                    
+                    <div class="form-group">
+                        <label>Je cherche <span class="required">*</span></label>
+                        <select id="propertyType" required>
+                            <option value="">-- Sélectionnez --</option>
+                            <optgroup label="Résidentiel">
+                                <option value="chambre">Chambre à louer</option>
+                                <option value="colocation">Colocation</option>
+                                <option value="appartement">Appartement</option>
+                                <option value="maison">Maison</option>
+                                <option value="villa">Villa</option>
+                            </optgroup>
+                            <optgroup label="Professionnel">
+                                <option value="bureau">Bureau</option>
+                                <option value="coworking">Espace de coworking</option>
+                                <option value="boutique">Boutique/Local Commercial</option>
+                            </optgroup>
+                            <optgroup label="Recherche de personnes">
+                                <option value="colocataire">Colocataire</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Section 2: Qui cherche ? -->
+                <div class="form-section">
+                    <h2 class="section-title">Qui est à la recherche ?</h2>
+                    
+                    <div class="form-group">
+                        <div class="radio-grid">
+                            <label class="radio-option">
+                                <input type="radio" name="who" value="solo" checked>
+                                <span>Pour moi-même</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="who" value="friend">
+                                <span>Pour un ami(e)</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="who" value="partner">
+                                <span>Moi et un partenaire</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="who" value="duo">
+                                <span>Moi et un ami(e)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Sexe -->
+                <div class="form-section">
+                    <h2 class="section-title">Sexe</h2>
+                    
+                    <div class="form-group">
+                        <div id="genderContainer" class="radio-grid">
+                            <label class="radio-option">
+                                <input type="radio" name="gender" value="male" checked>
+                                <span>1 homme</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="gender" value="female">
+                                <span>1 femme</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips Box -->
+                <div class="tips-box">
+                    <h3>Conseil</h3>
+                    <ul>
+                        <li>Soyez précis dans votre sélection pour recevoir des annonces adaptées</li>
+                        <li>Vous pourrez affiner vos critères à l'étape suivante</li>
+                    </ul>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btnRetour">Retour</button>
+                    <button type="submit" class="btn btn-primary">Suivant</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Gestion du bouton Retour
+        document.getElementById('btnRetour').addEventListener('click', function() {
+            window.history.back();
+        });
+
+        // Gestion des radio options avec classe selected
+        document.querySelectorAll('.radio-option').forEach(option => {
+            const radio = option.querySelector('input[type="radio"]');
+            
+            // Sélectionner l'option au clic
+            option.addEventListener('click', function(e) {
+                if (e.target !== radio) {
+                    radio.checked = true;
+                    // Déclencher l'événement change
+                    radio.dispatchEvent(new Event('change'));
+                }
+                
+                // Retirer la classe selected de toutes les options du même groupe
+                const name = radio.name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.closest('.radio-option').classList.remove('selected');
+                });
+                
+                // Ajouter la classe selected à l'option cochée
+                if (radio.checked) {
+                    this.classList.add('selected');
+                }
+            });
+            
+            // Marquer l'option checked au chargement
+            if (radio.checked) {
+                option.classList.add('selected');
+            }
+        });
+
+        // Gestion dynamique des options de sexe selon le nombre de personnes
+        const whoRadios = document.querySelectorAll('input[name="who"]');
+        const genderContainer = document.getElementById('genderContainer');
+
+        const soloGenderOptions = `
+            <label class="radio-option">
+                <input type="radio" name="gender" value="male" checked>
+                <span>1 homme</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="gender" value="female">
+                <span>1 femme</span>
+            </label>
+        `;
+
+        const duoGenderOptions = `
+            <label class="radio-option">
+                <input type="radio" name="gender" value="2males" checked>
+                <span>2 hommes</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="gender" value="2females">
+                <span>2 femmes</span>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="gender" value="mixed">
+                <span>1 homme 1 femme</span>
+            </label>
+        `;
+
+        whoRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'partner' || e.target.value === 'duo') {
+                    genderContainer.innerHTML = duoGenderOptions;
+                } else {
+                    genderContainer.innerHTML = soloGenderOptions;
+                }
+                
+                // Réinitialiser les événements click sur les nouvelles options
+                genderContainer.querySelectorAll('.radio-option').forEach(option => {
+                    const radio = option.querySelector('input[type="radio"]');
+                    option.addEventListener('click', function(e) {
+                        if (e.target !== radio) {
+                            radio.checked = true;
+                        }
+                        genderContainer.querySelectorAll('.radio-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        if (radio.checked) {
+                            this.classList.add('selected');
+                        }
+                    });
+                    
+                    if (radio.checked) {
+                        option.classList.add('selected');
+                    }
+                });
+            });
+        });
+
+        // Validation et navigation du formulaire
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const propertyType = document.getElementById('propertyType').value;
+            if (!propertyType) {
+                alert('Veuillez sélectionner un type de propriété');
+                return;
+            }
+            
+            // Mise à jour de la barre de progression
+            document.getElementById('progressLine').style.width = '50%';
+            
+            // Redirection vers l'étape 2
+            window.location.href = 'annonce_de_recherche_suivant.html';
+            alert('Passage à l\'étape 2 - Préférences');
+        });
+
+        // Animation de la progress bar au chargement
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('progressLine').style.width = '0%';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
