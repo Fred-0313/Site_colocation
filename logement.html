@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publier une annonce - SpacePro Bénin</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1B2B48;
+            --secondary-color: #D4A574;
+            --accent-color: #E8763B;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #767676;
+            --bg-light: #FAFAFA;
+            --white: #ffffff;
+            --border-light: #E5E5E5;
+            --success-green: #10B981;
+            --shadow-sm: 0 2px 8px rgba(27, 43, 72, 0.06);
+            --shadow-md: 0 4px 16px rgba(27, 43, 72, 0.08);
+            --shadow-lg: 0 8px 32px rgba(27, 43, 72, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ==================== HEADER ==================== */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .header-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            color: var(--text-medium);
+            background: transparent;
+        }
+
+        .btn-login:hover {
+            background: var(--bg-light);
+        }
+
+        .btn-signup {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-signup:hover {
+            background: #0f1a2e;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        main {
+            max-width: 680px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease;
+
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-container {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: #a65e2e;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+
+        }
+
+        /* ==================== PROGRESS BAR ==================== */
+        .progress-container {
+            background-color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .progress-steps {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #e0e0e0;
+            z-index: 0;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            z-index: 1;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            background-color: white;
+            padding: 0 10px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background-color: #a65e2e;
+            color: white;
+            box-shadow: 0 4px 12px rgba(27, 43, 72, 0.3);
+            transform: scale(1.1);
+        }
+
+        .step.completed .step-number {
+            background-color: var(--success-green);
+            color: white;
+        }
+
+        .step.completed .step-number::before {
+            content: "✓";
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .step.active .step-label {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .step.completed .step-label {
+            color: var(--success-green);
+        }
+
+        /* ==================== FORM SECTIONS ==================== */
+        .form-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.875rem;
+            letter-spacing: -0.01em;
+        }
+
+        .required {
+            color: var(--accent-color);
+            margin-left: 2px;
+        }
+
+        /* ==================== INPUTS ==================== */
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 80%;
+            padding: 0.5rem 0.75rem;
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--white);
+            color: var(--text-dark);
+            height: 38px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--white);
+            color: var(--text-dark);
+            height: 38px;
+        }
+
+        input:hover,
+        select:hover,
+        textarea:hover {
+            border-color: #d0d0d0;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(27, 43, 72, 0.08);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%234a4a4a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 3rem;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .input-group input {
+            min-width: 0;
+        }
+
+        .input-group select {
+            min-width: 180px;
+        }
+
+        .help-text {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .help-text::before {
+            content: "ℹ";
+            font-size: 0.9rem;
+            color: #1B2B48;
+            font-weight: bold;
+            background: #E3F2FD;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: normal;
+        }
+
+        /* ==================== RADIO BUTTONS ==================== */
+        .radio-group {
+            display: grid;
+            gap: 0.6rem;
+        }
+
+        .radio-option {
+            background: var(--bg-light);
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            padding: 0.7rem 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            position: relative;
+            overflow: hidden;
+            height: 85%;  
+        }
+
+        .radio-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .radio-option:hover {
+            border-color: var(--primary-color);
+            background: #f0f4ff;
+            transform: translateX(4px);
+        }
+
+        .radio-option.selected {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f4ff 100%);
+        }
+
+        .radio-option.selected::before {
+            transform: scaleY(1);
+        }
+
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-color);
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        .radio-content {
+            flex: 1;
+        }
+
+        .radio-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+            font-size: 0.9rem;
+        }
+
+        .radio-description {
+            font-size: 0.8rem;
+            color: var(--text-medium);
+            line-height: 1.4;
+        }
+
+        /* ==================== SOCIAL LOGIN ==================== */
+        .social-login {
+            margin: 1.5rem 0;
+        }
+
+        .btn-social {
+            width: 100%;
+            padding: 0.6rem;
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: white;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .btn-google {
+            background: white;
+            color: var(--text-dark);
+            border-color: var(--border-light);
+        }
+
+        .btn-google:hover {
+            background: #f8f9fa;
+            border-color: #d0d0d0;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-google::before {
+            content: "G";
+            width: 20px;
+            height: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%234285F4' d='M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z'/%3E%3Cpath fill='%2334A853' d='M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z'/%3E%3Cpath fill='%23FBBC05' d='M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z'/%3E%3Cpath fill='%23EA4335' d='M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z'/%3E%3C/svg%3E");
+            color: white;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 1rem;
+            position: relative;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .form-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.65rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .btn-back {
+            background: transparent;
+            color: var(--text-medium);
+            border: none;
+            padding: 0.65rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .btn-back:hover {
+            color: var(--primary-color);
+            background: var(--bg-light);
+        }
+
+        .btn-back::before {
+            content: "";
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1B2B48 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(27, 43, 72, 0.2);
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            max-width: 150px;
+            margin-left: auto;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 1s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(27, 43, 72, 0.3);
+            background: #a65e2e;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: var(--white);
+            border-top: 1px solid var(--border-light);
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-text {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 800px) {
+            .progress-steps {
+                padding: 0 0.5rem;
+            }
+
+            .step-label {
+                font-size: 0.4rem;
+            }
+
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .header-container {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .header-actions {
+                gap: 0.5rem;
+            }
+
+            .header-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group select {
+                width: 100%;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn-back {
+                order: 2;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .btn-primary {
+                order: 1;
+                max-width: 100%;
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .footer-links {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 1.5rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        
+
+
+
+        
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-steps">
+            <div class="progress-line" id="progressLine"></div>
+            <div class="step active">
+                <div class="step-number">1</div>
+                <div class="step-label">Informations</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-label">Détails</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-label">Photos</div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-label">Description</div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-label">Confirmation</div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="form-container">
+            <div class="form-header">
+                <p class="subtitle">Commencez avec votre annonce</p>
+            </div>
+
+            <form id="offerForm">
+                <!-- Section 1: Type et nombre de chambres -->
+                <div class="form-section">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>J'offre <span class="required">*</span></label>
+                            <select id="roomCount" required>
+                                <option value="">--Sélectionner--</option>
+                                <option value="1">1 </option>
+                                <option value="2">2 </option>
+                                <option value="3">3 </option>
+                                <option value="4">4 </option>
+                                <option value="5">5 </option>
+                                <option value="6">6 </option>
+                                <option value="7">7 </option>
+                                <option value="8">8 </option>
+                                <option value="9">9 </option>
+                                <option value="10">10 </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Type de logement <span class="required">*</span></label>
+                            <select id="propertyType" required>
+                                <option value="">--Sélectionner--</option>
+                                <option value="chambre">Chambre(s)</option>
+                                <option value="appartement">Appartement(s)</option>
+                                <option value="maison">Maison(s)</option>
+                                <option value="villa">Villa(s)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Prix -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label>Loyer <span class="required">*</span></label>
+                        <div class="input-group">
+                            <input type="number" id="price" placeholder="Ex: 50000" min="0" required>
+                            <select id="priceFrequency">
+                                <option value="mois">FCFA/mois</option>
+                                <option value="semaine">FCFA/semaine</option>
+                                <option value="jour">FCFA/jour</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Adresse -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label>Adresse du logement <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="address" 
+                            placeholder="Ex: Akpakpa, Cotonou, Bénin"
+                            required
+                        >
+                        <p class="help-text">Saisissez le quartier et la ville</p>
+                    </div>
+                </div>
+
+                <!-- Section 4: Statut -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label>Je suis <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="status" value="owner" checked>
+                                <div class="radio-content">
+                                    <div class="radio-title">Propriétaire non-résident</div>
+                                    <div class="radio-description">Je suis propriétaire du logement mais je n'y habite pas</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="status" value="agency">
+                                <div class="radio-content">
+                                    <div class="radio-title">Agence immobilière</div>
+                                    <div class="radio-description">Je publie l'annonce au nom d'un propriétaire</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="status" value="roommate">
+                                <div class="radio-content">
+                                    <div class="radio-title">Colocataire actuel</div>
+                                    <div class="radio-description">Je déménage et j'ai besoin de quelqu'un pour me remplacer</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Social Login -->
+                <div class="social-login">
+                    <button type="button" class="btn-social btn-google" id="googleLoginBtn">
+                        Continuer avec Google
+                    </button>
+                </div>
+
+                <div class="divider">
+                    <span>ou continuer avec email</span>
+                </div>
+
+                <!-- Section 6: Email -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <input 
+                            type="email" 
+                            id="email" 
+                            placeholder="votre.email@example.com"
+                        >
+                        <p class="help-text">Nous en assurerons la sécurité et ne l'afficherons pas publiquement</p>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-back" id="backBtn">Retour</button>
+                    <button type="submit" class="btn btn-primary">Continuer</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+       
+
+
+
+    </footer>
+
+    <script>
+        // ==================== ANIMATION BARRE DE PROGRESSION ====================
+        function updateProgressBar(currentStep) {
+            const progressLine = document.getElementById('progressLine');
+            const steps = document.querySelectorAll('.step');
+            
+            // Calculer le pourcentage de progression
+            const progressPercentage = ((currentStep - 1) / (steps.length - 1)) * 100;
+            progressLine.style.width = progressPercentage + '%';
+            
+            // Mettre à jour les classes des étapes
+            steps.forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                
+                if (index + 1 < currentStep) {
+                    step.classList.add('completed');
+                } else if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialiser la barre à l'étape 1
+        window.addEventListener('DOMContentLoaded', function() {
+            updateProgressBar(1);
+        });
+
+        // Gestion des radio options avec classe selected
+        document.querySelectorAll('.radio-option').forEach(option => {
+            const radio = option.querySelector('input[type="radio"]');
+            
+            // Sélectionner l'option au clic
+            option.addEventListener('click', function(e) {
+                if (e.target !== radio) {
+                    radio.checked = true;
+                }
+                
+                // Retirer la classe selected de toutes les options
+                document.querySelectorAll('.radio-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Ajouter la classe selected à l'option cochée
+                if (radio.checked) {
+                    this.classList.add('selected');
+                }
+            });
+            
+            // Marquer l'option checked au chargement
+            if (radio.checked) {
+                option.classList.add('selected');
+            }
+        });
+
+        // Animation des inputs au focus
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.01)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Validation et soumission du formulaire
+        document.getElementById('offerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Récupération des données
+            const formData = {
+                roomCount: document.getElementById('roomCount').value,
+                propertyType: document.getElementById('propertyType').value,
+                price: document.getElementById('price').value,
+                priceFrequency: document.getElementById('priceFrequency').value,
+                address: document.getElementById('address').value,
+                status: document.querySelector('input[name="status"]:checked').value,
+                email: document.getElementById('email').value
+            };
+
+            // Validation
+            if (!formData.roomCount || !formData.propertyType || !formData.price || !formData.address) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+
+            // Validation de l'email si fourni
+            if (formData.email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(formData.email)) {
+                    alert('Veuillez entrer une adresse e-mail valide');
+                    return;
+                }
+            }
+
+            // Animation du bouton pendant la soumission
+            const submitBtn = this.querySelector('.btn-primary');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Chargement...';
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+
+            // Simulation d'envoi au serveur
+            setTimeout(() => {
+                console.log('Données du formulaire:', formData);
+                
+                // Affichage du succès
+                alert('✅ Formulaire soumis avec succès !\n\nVous allez être redirigé vers l\'étape suivante.');
+                
+                // Redirection vers l'étape 2
+                // window.location.href = 'etape-2.html';
+                
+                // Réinitialisation du bouton
+                submitBtn.textContent = originalText;
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }, 1500);
+        });
+
+        // Connexion Google - REDIRECTION ACTIVE
+        document.getElementById('googleLoginBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Redirection vers Google OAuth
+            // URL à adapter selon votre configuration OAuth
+            const googleAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' + 
+                'client_id=YOUR_CLIENT_ID&' +
+                'redirect_uri=YOUR_REDIRECT_URI&' +
+                'response_type=code&' +
+                'scope=email profile&' +
+                'access_type=offline';
+            
+            // Redirection immédiate vers Google
+            window.location.href = googleAuthUrl;
+            
+            // Note: Remplacez YOUR_CLIENT_ID et YOUR_REDIRECT_URI par vos vraies valeurs
+            // Pour le développement, vous pouvez utiliser:
+            window.location.href = 'https://accounts.google.com/signin';
+        });
+
+        // Bouton Retour - RETOUR ARRIÈRE ACTIF
+        document.getElementById('backBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Retour à la page précédente
+            window.history.back();
+        });
+
+        // Validation en temps réel de l'email
+        document.getElementById('email').addEventListener('input', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (this.value && !emailRegex.test(this.value)) {
+                this.style.borderColor = 'var(--accent-color)';
+            } else {
+                this.style.borderColor = 'var(--border-light)';
+            }
+        });
+
+        // Format automatique du prix (ajouter des espaces)
+        document.getElementById('price').addEventListener('input', function(e) {
+            let value = this.value.replace(/\s/g, '');
+            if (value) {
+                // Format avec espaces tous les 3 chiffres
+                value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+                this.value = value;
+            }
+        });
+    </script>
+</body>
+</html>
