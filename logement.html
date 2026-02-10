@@ -1099,7 +1099,7 @@
             let value = this.value.replace(/\s/g, '');
             if (value) {
                 // Format avec espaces tous les 3 chiffres
-                value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+                value = value.replace(/\B(?=(\d{100})+(?!\d))/g, ' ');
                 this.value = value;
             }
         });
