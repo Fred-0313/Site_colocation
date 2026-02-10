@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xAMi - Plateforme Immobilière</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* SECTION HERO AVEC CARROUSEL */
+        .hero-section {
+            position: relative;
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        /* Carrousel d'images */
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Overlay sombre sur les images */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(44, 76, 126, 0.8) 0%, rgba(217, 113, 54, 0.6) 100%);
+            z-index: 1;
+        }
+
+        /* Contenu Hero */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            color: #ffffff;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            max-width: 700px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease-out;
+            line-height: 1.5;
+        }
+
+        /* Barre de recherche */
+        .search-bar {
+            background: #ffffff;
+            padding: 4px;
+            border-radius: 8px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c4c7e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group select,
+        .form-group input {
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #d97136;
+            background: #ffffff;
+        }
+
+        .btn-search {
+            background: #d97136;
+            color: #ffffff;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            height: 52px;
+        }
+
+        .btn-search:hover {
+            background: #c5622b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 113, 54, 0.5);
+        }
+
+        .btn-search i {
+            font-size: 18px;
+        }
+
+        /* Indicateurs de slides */
+        .slide-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            gap: 12px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .indicator:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .indicator.active {
+            background: #ffffff;
+            width: 40px;
+            border-radius: 6px;
+        }
+
+
+        /* Bannière CTA sous la recherche - SANS ARRIÈRE-PLAN */
+.cta-banner {
+    background: transparent;          /* Pas d'arrière-plan */
+    padding: 25px 30px;
+    border-radius: 0;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    box-shadow: none;                 /* Pas d'ombre */
+    animation: fadeInUp 1.4s ease-out;
+    max-width: 800px;
+    width: 100%;
+    margin-top: 60px;
+}
+
+.cta-banner p {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;                   /* Texte blanc */
+    margin: 0;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);  /* Ombre pour lisibilité */
+}
+
+.btn-cta {
+    background: #e97115;
+    color: #ffffff;
+    padding: 14px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 10px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);  /* Ombre pour faire ressortir */
+}
+
+.btn-cta:hover {
+    background: #da5c1d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 252, 251, 0.5);
+}
+
+/* Responsive pour la bannière CTA */
+@media (max-width: 768px) {
+    .cta-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        gap: 15px;
+        margin-top: 20px;
+        overflow: hidden;
+
+    }
+
+    .cta-banner p {
+        font-size: 17px;
+        flex:1;
+        min-width: 0;
+    }
+
+    .btn-cta {
+        width: 100%;
+        padding: 14px 25px;
+        font-size: 15px;
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-banner {
+        padding: 18px 15px;
+        margin-top: 18px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .cta-banner p {
+        font-size: 15px;
+        white-space: nowrap;
+    }
+
+    .btn-cta {
+        padding: 13px 20px;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+}
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 40px;
+            }
+
+            .hero-content p {
+                font-size: 18px;
+            }
+
+            .search-form {
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 15px;
+            }
+
+            .logo img {
+                width: 90px;
+            }
+
+            .nav-actions {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Hero reste identique sur mobile */
+            .hero-section {
+                min-height: 550px;
+            }
+
+            .hero-content {
+                min-height: 550px;
+                padding: 50px 20px;
+                justify-content: center;
+            }
+
+            .hero-content h1 {
+                font-size: 30px;
+                margin-bottom: 15px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+
+            /* Barre de recherche : 3 champs en ligne sur mobile */
+            .search-bar {
+                padding: 5px 10px;
+            }
+
+            .search-form {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .form-group label {
+                font-size: 11px;
+            }
+
+            .form-group select,
+            .form-group input {
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+
+            .btn-search {
+                padding: 3px 5px;
+                height: 40px;
+                font-size: 10px;
+            }
+
+            .slide-indicators {
+                bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                width: 80px;
+            }
+
+            .hero-section {
+                min-height: 500px;
+            }
+
+            .hero-content {
+                min-height: 500px;
+                padding: 40px 12px;
+            }
+
+            .hero-content h1 {
+                font-size: 24px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+                margin-bottom: 25px;
+            }
+
+            /* Barre de recherche : reste en 3 colonnes */
+            .search-bar {
+                padding: 15px 10px;
+            }
+
+            .search-form {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .form-group label {
+                font-size: 10px;
+            }
+
+            .form-group select,
+            .form-group input {
+                padding: 9px 6px;
+                font-size: 12px;
+            }
+
+            .btn-search {
+                padding: 9px 10px;
+                height: 42px;
+                font-size: 13px;
+                gap: 5px;
+            }
+
+            .slide-indicators {
+                bottom: 15px;
+                gap: 8px;
+            }
+
+            .indicator {
+                width: 10px;
+                height: 10px;
+            }
+
+            .indicator.active {
+                width: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SECTION HERO AVEC CARROUSEL -->
+    <section class="hero-section">
+        <!-- Carrousel d'images -->
+        <div class="hero-slider">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80"
+                    alt="Belle maison moderne">
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=80"
+                    alt="Appartement luxueux">
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1600&q=80"
+                    alt="Villa contemporaine">
+            </div>
+            <!-- Slide 4 -->
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1600&q=80"
+                    alt="Terrain avec vue">
+            </div>
+        </div>
+
+        <!-- Overlay -->
+        <div class="hero-overlay"></div>
+
+        <!-- Contenu Hero -->
+        <div class="hero-content">
+            <h1>Vivre, partager,entreprendre.</h1>
+            <p>Avec Xà Mi,trouvez votre chambre,colocation, espace de coworking ou bureau privé, partout au Bénin</p>
+
+            <!-- Barre de recherche -->
+            <div class="search-bar">
+                <form class="search-form">
+                    <div class="form-group">
+                        <label for="type">Type de bien</label>
+                        <select id="type" name="type">
+                            <option value="">Tous</option>
+                            <option value="maison">Maison</option>
+                            <option value="appartement">Appartement</option>
+                            <option value="terrain">Terrain</option>
+                            <option value="commerce">Commerce</option>
+                            <option value="bureau">Bureau</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Localisation</label>
+                        <input type="text" id="location" name="location" placeholder="Ville, quartier...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn-search">
+                            <i class="fas fa-search"></i>
+                            Rechercher
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="cta-banner">
+                <p>Vous recherchez un colocataire ou locataire?</p>
+                <a href="#" class="btn-cta">PUBLIER VOTRE ANNONCE</a>
+            </div>
+        </div>
+
+        <!-- Indicateurs de slides -->
+        <div class="slide-indicators">
+            <span class="indicator active" onclick="goToSlide(0)"></span>
+            <span class="indicator" onclick="goToSlide(1)"></span>
+            <span class="indicator" onclick="goToSlide(2)"></span>
+            <span class="indicator" onclick="goToSlide(3)"></span>
+        </div>
+    </section>
+
+
+    <script>
+        // Carrousel automatique
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        // Changer de slide toutes les 5 secondes
+        setInterval(nextSlide, 5000);
+
+        // Recherche
+        document.querySelector('.search-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const type = document.getElementById('type').value;
+            const location = document.getElementById('location').value;
+
+            console.log('Recherche:', { type, location });
+            alert('Recherche lancée !\nType: ' + (type || 'Tous') + '\nLieu: ' + (location || 'Non spécifié'));
+        });
+    </script>
+</body>
+
+</html>
