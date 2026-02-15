@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Responsive - Très Compact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            background: #f5f5f5;
+        }
+
+        footer {
+            background: #3a3a3a;
+            color: #ffffff;
+            padding: 20px 20px 10px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .footer-section h3 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 6px;
+        }
+
+        .footer-section ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s ease;
+            font-size: 12px;
+        }
+
+        .footer-section ul li a:hover {
+            color: #64b5f6;
+        }
+
+        .footer-section ul li a i {
+            width: 16px;
+            font-size: 13px;
+        }
+
+        .social-section {
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #64b5f6;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            font-size: 11px;
+            color: #cccccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .social-section {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            footer {
+                padding: 15px 12px 8px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                justify-items: center;
+                text-align: center;
+            }
+
+            .footer-section {
+                width: 100%;
+                max-width: 160px;
+            }
+
+            .footer-section ul li a {
+                justify-content: center;
+            }
+
+            .footer-section h3 {
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
+
+            .footer-section ul li {
+                margin-bottom: 5px;
+            }
+
+            .footer-section ul li a {
+                font-size: 11px;
+                gap: 5px;
+            }
+
+            .social-section {
+                grid-column: 1 / -1;
+                max-width: 100%;
+            }
+
+            .social-links {
+                gap: 8px;
+                margin-top: 8px;
+            }
+
+            .social-links a {
+                width: 30px;
+                height: 30px;
+                font-size: 13px;
+            }
+
+            .footer-bottom {
+                padding-top: 8px;
+            }
+
+            .footer-bottom p {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h1>Votre contenu principal ici</h1>
+            <p>Ce footer est entièrement responsive et ultra-compact.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Services publics -->
+                <div class="footer-section">
+                    <h3>Services publics</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fas fa-info-circle"></i> À propos</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-phone"></i> Contactez nous</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contribuer -->
+                <div class="footer-section">
+                    <h3>Contribuer</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="far fa-envelope"></i> Faire une suggestion</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-edit"></i> Signaler un problème</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- En savoir plus -->
+                <div class="footer-section">
+                    <h3>En savoir plus</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fas fa-gavel"></i> Mentions légales</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-file-alt"></i> CGU</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Données personnelles -->
+                <div class="footer-section">
+                    <h3>Données personnelles</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fas fa-user-shield"></i> Exercer ses droits</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Réseaux sociaux -->
+                <div class="footer-section social-section">
+                    <h3>Suivez-nous sur</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 Portail de l'administration béninoise - service-public.bj</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

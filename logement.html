@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publier une annonce - SpacePro Bénin</title>
+    <title>Publier une annonce - xAMi</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -84,47 +84,12 @@
             font-size: 1.2rem;
         }
 
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .header-btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-login {
-            color: var(--text-medium);
-            background: transparent;
-        }
-
-        .btn-login:hover {
-            background: var(--bg-light);
-        }
-
-        .btn-signup {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .btn-signup:hover {
-            background: #0f1a2e;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
-        }
-
         /* ==================== MAIN CONTENT ==================== */
         main {
             max-width: 680px;
             margin: 0 auto;
             animation: fadeInUp 0.6s ease;
-
+            padding: 0 1rem 3rem;
         }
 
         @keyframes fadeInUp {
@@ -153,20 +118,10 @@
             border-bottom: 2px solid var(--bg-light);
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
         .subtitle {
             color: #a65e2e;
             font-size: 1.5rem;
             margin-top: 0.5rem;
-
         }
 
         /* ==================== PROGRESS BAR ==================== */
@@ -266,6 +221,11 @@
         /* ==================== FORM SECTIONS ==================== */
         .form-section {
             margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
         }
 
         .form-group {
@@ -299,10 +259,11 @@
         /* ==================== INPUTS ==================== */
         input[type="text"],
         input[type="number"],
+        input[type="file"],
         select,
         textarea {
-            width: 80%;
-            padding: 0.5rem 0.75rem;
+            width: 100%;
+            padding: 0.75rem;
             border: 2px solid var(--border-light);
             border-radius: 6px;
             font-size: 0.9rem;
@@ -310,7 +271,6 @@
             transition: all 0.3s ease;
             background: var(--white);
             color: var(--text-dark);
-            height: 38px;
         }
 
         input[type="email"] {
@@ -324,6 +284,11 @@
             background: var(--white);
             color: var(--text-dark);
             height: 38px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
         }
 
         input:hover,
@@ -406,7 +371,7 @@
             gap: 0.7rem;
             position: relative;
             overflow: hidden;
-            height: 85%;  
+            min-height: 60px;
         }
 
         .radio-option::before {
@@ -445,6 +410,14 @@
             flex-shrink: 0;
         }
 
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
         .radio-content {
             flex: 1;
         }
@@ -460,6 +433,180 @@
             font-size: 0.8rem;
             color: var(--text-medium);
             line-height: 1.4;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+        }
+
+        .checkbox-option {
+            background: var(--bg-light);
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            padding: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .checkbox-option:hover {
+            border-color: var(--primary-color);
+            background: #f0f4ff;
+        }
+
+        .checkbox-option.selected {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f4ff 100%);
+        }
+
+        .checkbox-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        /* ==================== UPLOAD ZONE ==================== */
+        .upload-zone {
+            border: 2px dashed var(--border-light);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: var(--bg-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--primary-color);
+            background: #f0f4ff;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: var(--text-medium);
+            margin-bottom: 1rem;
+        }
+
+        .photo-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .photo-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--border-light);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* ==================== VIDEO PREVIEW ==================== */
+        .video-preview-container {
+            background: var(--bg-light);
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .video-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .video-info-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .video-icon-large {
+            font-size: 2rem;
+        }
+
+        .video-file-info {
+            flex: 1;
+        }
+
+        .video-file-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            word-break: break-word;
+        }
+
+        .video-file-meta {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .btn-remove-video {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-remove-video:hover {
+            background: #d96428;
+            transform: translateY(-2px);
+        }
+
+        .video-player-container {
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-player {
+            width: 100%;
+            max-height: 400px;
+            display: block;
         }
 
         /* ==================== SOCIAL LOGIN ==================== */
@@ -573,11 +720,6 @@
             background: var(--bg-light);
         }
 
-        .btn-back::before {
-            content: "";
-            font-size: 1.1rem;
-        }
-
         .btn-primary {
             background: linear-gradient(135deg, var(--primary-color) 0%, #1B2B48 100%);
             color: white;
@@ -614,6 +756,56 @@
             transform: translateY(0);
         }
 
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ==================== SUMMARY ==================== */
+        .summary-box {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .summary-box p {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .summary-box strong {
+            color: var(--primary-color);
+        }
+
+        .summary-box h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .summary-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .summary-box ul {
+            list-style: none;
+        }
+
+        .summary-box ul li {
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .summary-box ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: bold;
+        }
+
         /* ==================== FOOTER ==================== */
         footer {
             background: var(--white);
@@ -629,25 +821,6 @@
             text-align: center;
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--text-medium);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-
         .footer-text {
             color: var(--text-light);
             font-size: 0.85rem;
@@ -660,30 +833,13 @@
             }
 
             .step-label {
-                font-size: 0.4rem;
+                font-size: 0.7rem;
             }
 
             .step-number {
                 width: 35px;
                 height: 35px;
                 font-size: 0.9rem;
-            }
-
-            .header-container {
-                padding: 1rem 1.5rem;
-            }
-
-            .logo {
-                font-size: 1.4rem;
-            }
-
-            .header-actions {
-                gap: 0.5rem;
-            }
-
-            .header-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.85rem;
             }
 
             main {
@@ -694,11 +850,11 @@
                 padding: 2rem 1.5rem;
             }
 
-            h1 {
-                font-size: 1.75rem;
+            .form-row {
+                grid-template-columns: 1fr;
             }
 
-            .form-row {
+            .checkbox-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -727,8 +883,15 @@
                 margin-left: 0;
             }
 
-            .footer-links {
+            .video-preview-header {
+                flex-direction: column;
                 gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .btn-remove-video {
+                width: 100%;
+                justify-content: center;
             }
         }
 
@@ -737,12 +900,8 @@
                 padding: 1.5rem 1rem;
             }
 
-            h1 {
-                font-size: 1.5rem;
-            }
-
             .subtitle {
-                font-size: 0.95rem;
+                font-size: 1.2rem;
             }
         }
 
@@ -767,7 +926,9 @@
 
 
 
-        
+
+
+
     </header>
 
     <!-- Progress Bar -->
@@ -800,27 +961,27 @@
     <main>
         <div class="form-container">
             <div class="form-header">
-                <p class="subtitle">Commencez avec votre annonce</p>
+                <p class="subtitle" id="stepTitle">Commencez avec votre annonce</p>
             </div>
 
             <form id="offerForm">
-                <!-- Section 1: Type et nombre de chambres -->
-                <div class="form-section">
+                <!-- ==================== ÉTAPE 1: INFORMATIONS ==================== -->
+                <div class="form-section active" data-step="1">
                     <div class="form-row">
                         <div class="form-group">
                             <label>J'offre <span class="required">*</span></label>
                             <select id="roomCount" required>
                                 <option value="">--Sélectionner--</option>
-                                <option value="1">1 </option>
-                                <option value="2">2 </option>
-                                <option value="3">3 </option>
-                                <option value="4">4 </option>
-                                <option value="5">5 </option>
-                                <option value="6">6 </option>
-                                <option value="7">7 </option>
-                                <option value="8">8 </option>
-                                <option value="9">9 </option>
-                                <option value="10">10 </option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
                             </select>
                         </div>
 
@@ -835,10 +996,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
 
-                <!-- Section 2: Prix -->
-                <div class="form-section">
                     <div class="form-group">
                         <label>Loyer <span class="required">*</span></label>
                         <div class="input-group">
@@ -850,258 +1008,940 @@
                             </select>
                         </div>
                     </div>
-                </div>
 
-                <!-- Section 3: Adresse -->
-                <div class="form-section">
                     <div class="form-group">
                         <label>Adresse du logement <span class="required">*</span></label>
-                        <input 
-                            type="text" 
-                            id="address" 
-                            placeholder="Ex: Akpakpa, Cotonou, Bénin"
-                            required
-                        >
+                        <input type="text" id="address" placeholder="Ex: Akpakpa, Cotonou, Bénin" required>
                         <p class="help-text">Saisissez le quartier et la ville</p>
                     </div>
-                </div>
 
-                <!-- Section 4: Statut -->
-                <div class="form-section">
                     <div class="form-group">
                         <label>Je suis <span class="required">*</span></label>
                         <div class="radio-group">
-                            <label class="radio-option">
+                            <label class="radio-option selected">
                                 <input type="radio" name="status" value="owner" checked>
                                 <div class="radio-content">
-                                    <div class="radio-title">Propriétaire non-résident</div>
-                                    <div class="radio-description">Je suis propriétaire du logement mais je n'y habite pas</div>
+                                    <div class="radio-title">Propriétaire</div>
+                                    <div class="radio-description">Je suis propriétaire du logement</div>
                                 </div>
                             </label>
 
                             <label class="radio-option">
                                 <input type="radio" name="status" value="agency">
                                 <div class="radio-content">
-                                    <div class="radio-title">Agence immobilière</div>
+                                    <div class="radio-title">Agence immobilière / Démarcheur</div>
                                     <div class="radio-description">Je publie l'annonce au nom d'un propriétaire</div>
                                 </div>
                             </label>
 
                             <label class="radio-option">
-                                <input type="radio" name="status" value="roommate">
+                                <input type="radio" name="status" value="tenant">
                                 <div class="radio-content">
-                                    <div class="radio-title">Colocataire actuel</div>
+                                    <div class="radio-title">Locataire actuel</div>
+                                    <div class="radio-description">Je vis dans ce logement</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="status" value="former">
+                                <div class="radio-content">
+                                    <div class="radio-title">Ancien Colocataire</div>
                                     <div class="radio-description">Je déménage et j'ai besoin de quelqu'un pour me remplacer</div>
                                 </div>
                             </label>
                         </div>
                     </div>
-                </div>
 
-                <!-- Section 5: Social Login -->
-                <div class="social-login">
-                    <button type="button" class="btn-social btn-google" id="googleLoginBtn">
-                        Continuer avec Google
-                    </button>
-                </div>
+                    <div class="social-login">
+                        <button type="button" class="btn-social btn-google" id="googleLoginBtn">
+                            Continuer avec Google
+                        </button>
+                    </div>
 
-                <div class="divider">
-                    <span>ou continuer avec email</span>
-                </div>
+                    <div class="divider">
+                        <span>ou continuer avec email</span>
+                    </div>
 
-                <!-- Section 6: Email -->
-                <div class="form-section">
                     <div class="form-group">
-                        <input 
-                            type="email" 
-                            id="email" 
-                            placeholder="votre.email@example.com"
-                        >
+                        <input type="email" id="email" placeholder="votre.email@example.com">
                         <p class="help-text">Nous en assurerons la sécurité et ne l'afficherons pas publiquement</p>
                     </div>
                 </div>
 
-                <!-- Submit Button -->
+                <!-- ==================== ÉTAPE 2: DÉTAILS ==================== -->
+                <div class="form-section" data-step="2">
+                    <div class="form-group">
+                        <label>Configuration <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="configuration" value="simple" required>
+                                <div class="radio-content">
+                                    <div class="radio-title">Chambre simple</div>
+                                    <div class="radio-description">Chambre salon ordinaire sans sanitaire intégré</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="configuration" value="self">
+                                <div class="radio-content">
+                                    <div class="radio-title">Chambre sanitaire</div>
+                                    <div class="radio-description">Chambre salon avec toilette et douche privées</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="configuration" value="entree-couchee">
+                                <div class="radio-content">
+                                    <div class="radio-title">Entrée-couchée simple</div>
+                                    <div class="radio-description">Une chambre à couchée ordinaire</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="configuration" value="entree-couchee-sanitaire">
+                                <div class="radio-content">
+                                    <div class="radio-title">Entrée-couchée sanitaire</div>
+                                    <div class="radio-description">Une chambre à couchée avec toilette et douche privées</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="configuration" value="full">
+                                <div class="radio-content">
+                                    <div class="radio-title">Appartement complet</div>
+                                    <div class="radio-description">Salon, chambres, cuisine, sanitaires</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Type de bâtiment <span class="required">*</span></label>
+                            <select id="buildingType" required>
+                                <option value="">--Sélectionner--</option>
+                                <option value="villa-moderne">Villa moderne</option>
+                                <option value="immeuble">Immeuble</option>
+                                <option value="maison-cour">Maison de cour</option>
+                                <option value="residence">Résidence</option>
+                                <option value="duplex">Duplex</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Niveau/Étage <span class="required">*</span></label>
+                            <select id="floor" required>
+                                <option value="">--Sélectionner--</option>
+                                <option value="rdc">Rez-de-chaussée</option>
+                                <option value="etage1">1er étage</option>
+                                <option value="etage2">2ème étage</option>
+                                <option value="etage3">3ème étage</option>
+                                <option value="etage4">4ème étage et plus</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>État de la voie d'accès <span class="required">*</span></label>
+                        <select id="roadCondition" required>
+                            <option value="">--Sélectionner--</option>
+                            <option value="goudron">Route goudronnée</option>
+                            <option value="pave">Route pavée</option>
+                            <option value="terre-bonne">Route en terre battue (bon état)</option>
+                            <option value="terre-moyenne">Route en terre (état moyen)</option>
+                            <option value="difficile">Accès difficile en saison des pluies</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>État du logement <span class="required">*</span></label>
+                        <select id="propertyCondition" required>
+                            <option value="">--Sélectionner--</option>
+                            <option value="neuf">Neuf / Récent</option>
+                            <option value="excellent">Excellent état</option>
+                            <option value="bon">Bon état</option>
+                            <option value="renover">À rénover</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Meublé <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="furnished" value="yes" required>
+                                <div class="radio-content">
+                                    <div class="radio-title">Oui, meublé</div>
+                                    <div class="radio-description">Lit, armoire, table, chaises inclus</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="furnished" value="partial">
+                                <div class="radio-content">
+                                    <div class="radio-title">Partiellement meublé</div>
+                                    <div class="radio-description">Quelques meubles disponibles</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="furnished" value="no">
+                                <div class="radio-content">
+                                    <div class="radio-title">Non meublé</div>
+                                    <div class="radio-description">Aucun meuble fourni</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Type de toilette <span class="required">*</span></label>
+                        <select id="toiletType" required>
+                            <option value="">--Sélectionner--</option>
+                            <option value="wc-moderne">WC moderne (chasse d'eau)</option>
+                            <option value="wc-interne">WC interne</option>
+                            <option value="wc-externe">WC externe</option>
+                            <option value="latrines">Latrines</option>
+                            <option value="commune">Toilette commune</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Équipements et commodités disponibles</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="eau-courante">
+                                <div class="checkbox-title">Eau courante (SONEB)</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="electricite">
+                                <div class="checkbox-title">Électricité (SBEE)</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="compteur-prive">
+                                <div class="checkbox-title">Compteur privé</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="forage">
+                                <div class="checkbox-title">Forage/Puits</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="wifi">
+                                <div class="checkbox-title">Wi-Fi</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="parking">
+                                <div class="checkbox-title">Parking/Cour</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="ac">
+                                <div class="checkbox-title">Climatiseur</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="ventilo">
+                                <div class="checkbox-title">Ventilateur</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="cuisine">
+                                <div class="checkbox-title">Cuisine équipée</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="douche-int">
+                                <div class="checkbox-title">Douche interne</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="gardien">
+                                <div class="checkbox-title">Gardien/Sécurité</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="cloture">
+                                <div class="checkbox-title">Maison clôturée</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="portail">
+                                <div class="checkbox-title">Portail</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="carrelage">
+                                <div class="checkbox-title">Carrelage</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="placard">
+                                <div class="checkbox-title">Placard intégré</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="balcon">
+                                <div class="checkbox-title">Balcon/Terrasse</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Proximités (cochez ce qui s'applique)</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="transport">
+                                <div class="checkbox-title">Transport (zem, taxi)</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="marche">
+                                <div class="checkbox-title">Marché</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="ecole">
+                                <div class="checkbox-title">École/Université</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="hopital">
+                                <div class="checkbox-title">Centre de santé</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="mosquee">
+                                <div class="checkbox-title">Mosquée/Église</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="commerce">
+                                <div class="checkbox-title">Commerces/Boutiques</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="banque">
+                                <div class="checkbox-title">Banque/DAB</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="restaurant">
+                                <div class="checkbox-title">Restaurant/Maquis</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date de disponibilité <span class="required">*</span></label>
+                        <input type="text" id="availability" placeholder="Ex: Immédiat ou 15/03/2025" required>
+                        <p class="help-text">Indiquez quand le logement sera disponible</p>
+                    </div>
+                </div>
+
+                <!-- ==================== ÉTAPE 3: PHOTOS ET VIDÉO ==================== -->
+                <div class="form-section" data-step="3">
+                    <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid #ffc107;">
+                        <p style="margin: 0; font-size: 0.85rem; color: #856404;">
+                            <strong> Conseils :</strong> Prenez vos photos en journée avec bonne lumière. Montrez la chambre, la douche/toilette, la cuisine (si équipée), la cour et la devanture du bâtiment.
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Photos du logement <span class="required">*</span></label>
+                        <div class="upload-zone" onclick="document.getElementById('photoInput').click()">
+                            <div class="upload-icon">📸</div>
+                            <p class="upload-text">Cliquez pour ajouter des photos</p>
+                            <input type="file" id="photoInput" accept="image/jpeg,image/jpg,image/png" multiple style="display: none;">
+                        </div>
+                        <p class="help-text">Minimum 3 photos - Maximum 5MB par photo (JPG, PNG)</p>
+                        <div class="photo-preview" id="photoPreview"></div>
+                    </div>
+
+                    <div style="background: var(--bg-light); padding: 1.2rem; border-radius: 8px; margin-top: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-dark);">
+                             Photos recommandées :
+                        </p>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; font-size: 0.85rem; color: var(--text-medium);">
+                            <div>✓ Chambre(s)</div>
+                            <div>✓ Salon</div>
+                            <div>✓ Toilette/Douche</div>
+                            <div>✓ Cuisine</div>
+                            <div>✓ Cour/Extérieur</div>
+                            <div>✓ Façade du bâtiment</div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 2.5rem 0; border-top: 2px solid var(--border-light); position: relative;">
+                        <span style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: white; padding: 0 1rem; color: var(--text-light); font-size: 0.85rem;">
+                            Optionnel
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Vidéo de visite 
+                            <span style="color: var(--text-light); font-weight: 400; font-size: 0.85rem;">(recommandé mais optionnel)</span>
+                        </label>
+                        <div class="upload-zone" onclick="document.getElementById('videoInput').click()">
+                            <div class="upload-icon">🎥</div>
+                            <p class="upload-text">Ajoutez une courte vidéo du logement</p>
+                            <input type="file" id="videoInput" accept="video/mp4,video/mov,video/avi,video/webm" style="display: none;">
+                        </div>
+                        <p class="help-text">Filmez l'intérieur en faisant le tour - Max 2 minutes et 50MB</p>
+                        <div id="videoPreview"></div>
+                    </div>
+                </div>
+
+                <!-- ==================== ÉTAPE 4: DESCRIPTION ==================== -->
+                <div class="form-section" data-step="4">
+                    <div class="form-group">
+                        <label>Titre de l'annonce <span class="required">*</span></label>
+                        <input type="text" id="title" placeholder="Ex: Belle chambre sanitaire à Akpakpa, proche du goudron" required maxlength="100">
+                        <p class="help-text">Maximum 100 caractères</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description détaillée <span class="required">*</span></label>
+                        <textarea id="description" placeholder="Décrivez votre logement: configuration, état, environnement, proximités..." required></textarea>
+                        <p class="help-text">Soyez précis et honnête pour attirer les bons locataires</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Règles de location</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="rules" value="no-smoking">
+                                <div class="checkbox-title">Non-fumeur</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="rules" value="no-pets">
+                                <div class="checkbox-title">Pas d'animaux</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="rules" value="students">
+                                <div class="checkbox-title">Étudiants acceptés</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="rules" value="celibataires">
+                                <div class="checkbox-title">Celibataires</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="rules" value="Fonctionnaires">
+                                <div class="checkbox-title">Fonctionnaires</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="rules" value="families">
+                                <div class="checkbox-title">Familles acceptées</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Numéro de téléphone <span class="required">*</span></label>
+                        <input type="text" id="phone" placeholder="+229 XX XX XX XX xx" required>
+                        <p class="help-text">Les locataires vous contacteront via ce numéro</p>
+                    </div>
+                </div>
+
+                <!-- ==================== ÉTAPE 5: CONFIRMATION ==================== -->
+                <div class="form-section" data-step="5">
+                    <div style="text-align: center; padding: 1rem 0;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
+                        <h2 style="color: var(--primary-color); margin-bottom: 1rem; font-family: 'Playfair Display', serif;">Votre annonce est prête !</h2>
+                        <p style="color: var(--text-medium); margin-bottom: 2rem; font-size: 0.95rem;">Vérifiez attentivement toutes les informations avant de publier</p>
+
+                        <div class="summary-box" style="text-align: left;">
+                            <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.1rem; border-bottom: 2px solid var(--border-light); padding-bottom: 0.8rem;">
+                                 Récapitulatif de votre annonce
+                            </h3>
+                            
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--secondary-color); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 600;">
+                                     Informations
+                                </h4>
+                                <div id="summaryBasic" style="padding-left: 1rem; border-left: 3px solid var(--secondary-color);"></div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--secondary-color); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 600;">
+                                     Configuration et équipements
+                                </h4>
+                                <div id="summaryConfig" style="padding-left: 1rem; border-left: 3px solid var(--secondary-color);"></div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--secondary-color); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 600;">
+                                    Localisation et accès
+                                </h4>
+                                <div id="summaryLocation" style="padding-left: 1rem; border-left: 3px solid var(--secondary-color);"></div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--secondary-color); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 600;">
+                                    Description et contact
+                                </h4>
+                                <div id="summaryDescription" style="padding-left: 1rem; border-left: 3px solid var(--secondary-color);"></div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--secondary-color); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 600;">
+                                    Médias
+                                </h4>
+                                <div id="summaryMedia" style="padding-left: 1rem; border-left: 3px solid var(--secondary-color);"></div>
+                            </div>
+                        </div>
+
+                        <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: left; border-left: 4px solid var(--success-green);">
+                            <h4 style="color: var(--success-green); font-size: 1rem; margin-bottom: 1rem; font-weight: 600;">
+                                Conseils pour réussir votre location
+                            </h4>
+                            <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-medium); font-size: 0.85rem; line-height: 1.8;">
+                                <li>Répondez rapidement aux appels et messages des intéressés</li>
+                                <li>Soyez disponible pour les visites, de préférence en journée</li>
+                                <li>Préparez les documents : bail, quittances précédentes si disponibles</li>
+                                <li>Vérifiez l'identité des visiteurs avant de leur montrer le logement</li>
+                                <li>Si vous êtes propriétaire, ayez vos pièces d'identité à disposition</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: #fff3e0; padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: left; border-left: 4px solid #ff9800;">
+                            <h4 style="color: #f57c00; font-size: 1rem; margin-bottom: 1rem; font-weight: 600;">
+                                ⚠️ Rappels importants
+                            </h4>
+                            <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-medium); font-size: 0.85rem; line-height: 1.8;">
+                                <li>Votre numéro de téléphone sera visible sur l'annonce</li>
+                                <li>Assurez-vous que toutes les informations sont exactes</li>
+                                <li>Les fausses annonces sont interdites et peuvent être signalées</li>
+                                <li>L'annonce sera visible publiquement sur la plateforme xAMi</li>
+                            </ul>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 2rem;">
+                            <label class="checkbox-option" style="justify-content: center; background: white; border: 2px solid var(--primary-color);">
+                                <input type="checkbox" id="termsAccept" required>
+                                <div class="checkbox-title" style="font-size: 0.95rem;">
+                                    J'accepte les conditions d'utilisation et je confirme que toutes les informations fournies sont exactes
+                                </div>
+                            </label>
+                        </div>
+
+                        <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-medium);">
+                            <p style="margin: 0;">
+                                 Votre annonce sera publiée immédiatement et visible par tous les utilisateurs de XAMi au Bénin.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
                 <div class="form-actions">
-                    <button type="button" class="btn btn-back" id="backBtn">Retour</button>
-                    <button type="submit" class="btn btn-primary">Continuer</button>
+                    <button type="button" class="btn btn-back" id="backBtn" style="display: none;">Retour</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">Continuer</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Publier</button>
                 </div>
             </form>
         </div>
     </main>
 
     <footer>
-       
+        
 
 
 
+
+
+        
     </footer>
 
     <script>
-        // ==================== ANIMATION BARRE DE PROGRESSION ====================
-        function updateProgressBar(currentStep) {
+        let currentStep = 1;
+        const totalSteps = 5;
+        let uploadedPhotos = [];
+        let uploadedVideo = null;
+
+        const stepTitles = {
+            1: 'Commencez avec votre annonce',
+            2: 'Détails du logement',
+            3: 'Photos et vidéo',
+            4: 'Description et contact',
+            5: 'Confirmation'
+        };
+
+        // Navigation
+        function showStep(step) {
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const currentSection = document.querySelector(`[data-step="${step}"]`);
+            if (currentSection) {
+                currentSection.classList.add('active');
+            }
+
+            document.getElementById('stepTitle').textContent = stepTitles[step];
+
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            backBtn.style.display = step === 1 ? 'none' : 'flex';
+            nextBtn.style.display = step === totalSteps ? 'none' : 'block';
+            submitBtn.style.display = step === totalSteps ? 'block' : 'none';
+
+            updateProgressBar(step);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateProgressBar(step) {
             const progressLine = document.getElementById('progressLine');
             const steps = document.querySelectorAll('.step');
             
-            // Calculer le pourcentage de progression
-            const progressPercentage = ((currentStep - 1) / (steps.length - 1)) * 100;
+            const progressPercentage = ((step - 1) / (totalSteps - 1)) * 100;
             progressLine.style.width = progressPercentage + '%';
             
-            // Mettre à jour les classes des étapes
-            steps.forEach((step, index) => {
-                step.classList.remove('active', 'completed');
+            steps.forEach((stepEl, index) => {
+                stepEl.classList.remove('active', 'completed');
                 
-                if (index + 1 < currentStep) {
-                    step.classList.add('completed');
-                } else if (index + 1 === currentStep) {
-                    step.classList.add('active');
+                if (index + 1 < step) {
+                    stepEl.classList.add('completed');
+                } else if (index + 1 === step) {
+                    stepEl.classList.add('active');
                 }
             });
         }
-        
-        // Initialiser la barre à l'étape 1
-        window.addEventListener('DOMContentLoaded', function() {
-            updateProgressBar(1);
-        });
 
-        // Gestion des radio options avec classe selected
-        document.querySelectorAll('.radio-option').forEach(option => {
-            const radio = option.querySelector('input[type="radio"]');
+        function validateStep(step) {
+            const section = document.querySelector(`[data-step="${step}"]`);
+            const requiredInputs = section.querySelectorAll('[required]');
             
-            // Sélectionner l'option au clic
-            option.addEventListener('click', function(e) {
-                if (e.target !== radio) {
-                    radio.checked = true;
+            for (let input of requiredInputs) {
+                if (input.type === 'radio') {
+                    const radioGroup = section.querySelectorAll(`[name="${input.name}"]`);
+                    const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+                    if (!isChecked) {
+                        alert('Veuillez sélectionner une option pour tous les champs obligatoires');
+                        return false;
+                    }
+                } else if (input.type === 'checkbox' && input.id === 'termsAccept') {
+                    if (!input.checked) {
+                        alert('Veuillez accepter les conditions d\'utilisation');
+                        return false;
+                    }
+                } else if (!input.value) {
+                    alert('Veuillez remplir tous les champs obligatoires');
+                    input.focus();
+                    return false;
                 }
+            }
+
+            if (step === 3 && uploadedPhotos.length < 3) {
+                alert('Veuillez ajouter au moins 3 photos');
+                return false;
+            }
+
+            return true;
+        }
+
+        // Boutons navigation
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            if (validateStep(currentStep)) {
+                currentStep++;
+                showStep(currentStep);
                 
-                // Retirer la classe selected de toutes les options
-                document.querySelectorAll('.radio-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                
-                // Ajouter la classe selected à l'option cochée
-                if (radio.checked) {
-                    this.classList.add('selected');
+                if (currentStep === 5) {
+                    generateSummary();
                 }
-            });
-            
-            // Marquer l'option checked au chargement
-            if (radio.checked) {
-                option.classList.add('selected');
             }
         });
 
-        // Animation des inputs au focus
-        document.querySelectorAll('input, select, textarea').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'scale(1.01)';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'scale(1)';
+        document.getElementById('backBtn').addEventListener('click', function() {
+            currentStep--;
+            showStep(currentStep);
+        });
+
+        // Radio buttons
+        document.querySelectorAll('.radio-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                
+                const name = radio.getAttribute('name');
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.closest('.radio-option').classList.remove('selected');
+                });
+                
+                this.classList.add('selected');
             });
         });
 
-        // Validation et soumission du formulaire
+        // Checkboxes
+        document.querySelectorAll('.checkbox-option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                if (e.target.type !== 'checkbox') {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                }
+                
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                if (checkbox.checked) {
+                    this.classList.add('selected');
+                } else {
+                    this.classList.remove('selected');
+                }
+            });
+        });
+
+        // Upload photos
+        document.getElementById('photoInput').addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            
+            files.forEach(file => {
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('La photo ' + file.name + ' dépasse 5MB');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedPhotos.push({
+                        name: file.name,
+                        data: event.target.result
+                    });
+                    displayPhotos();
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        function displayPhotos() {
+            const preview = document.getElementById('photoPreview');
+            preview.innerHTML = '';
+            
+            uploadedPhotos.forEach((photo, index) => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                photoItem.innerHTML = `
+                    <img src="${photo.data}" alt="${photo.name}">
+                    <button type="button" class="photo-remove" onclick="removePhoto(${index})">×</button>
+                `;
+                preview.appendChild(photoItem);
+            });
+        }
+
+        function removePhoto(index) {
+            uploadedPhotos.splice(index, 1);
+            displayPhotos();
+        }
+
+        // Upload vidéo
+        document.getElementById('videoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            
+            if (!file) return;
+            
+            const maxSize = 50 * 1024 * 1024;
+            if (file.size > maxSize) {
+                alert('❌ La vidéo est trop volumineuse.\n\nTaille maximale : 50MB\nVotre vidéo : ' + (file.size / (1024 * 1024)).toFixed(1) + 'MB\n\nConseil : Réduisez la qualité ou la durée de votre vidéo.');
+                this.value = '';
+                return;
+            }
+            
+            if (!file.type.startsWith('video/')) {
+                alert('❌ Veuillez sélectionner un fichier vidéo valide (MP4, MOV, AVI, WebM).');
+                this.value = '';
+                return;
+            }
+            
+            const videoURL = URL.createObjectURL(file);
+            const tempVideo = document.createElement('video');
+            tempVideo.preload = 'metadata';
+            
+            tempVideo.onloadedmetadata = function() {
+                window.URL.revokeObjectURL(tempVideo.src);
+                const duration = tempVideo.duration;
+                
+                if (duration > 120) {
+                    const mins = Math.floor(duration / 60);
+                    const secs = Math.floor(duration % 60);
+                    alert(`❌ La vidéo est trop longue.\n\nDurée maximale : 2 minutes\nVotre vidéo : ${mins}:${secs.toString().padStart(2, '0')}\n\nConseil : Coupez votre vidéo pour garder l'essentiel.`);
+                    document.getElementById('videoInput').value = '';
+                    URL.revokeObjectURL(videoURL);
+                    return;
+                }
+                
+                uploadedVideo = {
+                    file: file,
+                    name: file.name,
+                    size: file.size,
+                    duration: duration,
+                    url: videoURL
+                };
+                
+                displayVideo();
+            };
+            
+            tempVideo.onerror = function() {
+                alert('❌ Impossible de lire cette vidéo. Veuillez essayer un autre fichier.');
+                document.getElementById('videoInput').value = '';
+                URL.revokeObjectURL(videoURL);
+            };
+            
+            tempVideo.src = videoURL;
+        });
+
+        function displayVideo() {
+            const preview = document.getElementById('videoPreview');
+            
+            if (!uploadedVideo) {
+                preview.innerHTML = '';
+                return;
+            }
+            
+            const sizeMB = (uploadedVideo.size / (1024 * 1024)).toFixed(1);
+            const minutes = Math.floor(uploadedVideo.duration / 60);
+            const seconds = Math.floor(uploadedVideo.duration % 60);
+            const durationText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            preview.innerHTML = `
+                <div class="video-preview-container">
+                    <div class="video-preview-header">
+                        <div class="video-info-section">
+                            <div class="video-icon-large">🎥</div>
+                            <div class="video-file-info">
+                                <div class="video-file-name">${uploadedVideo.name}</div>
+                                <div class="video-file-meta">${sizeMB} MB • Durée: ${durationText}</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-remove-video" onclick="removeVideo()">
+                            🗑️ Supprimer
+                        </button>
+                    </div>
+                    <div class="video-player-container">
+                        <video class="video-player" controls preload="metadata">
+                            <source src="${uploadedVideo.url}" type="${uploadedVideo.file.type}">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                </div>
+            `;
+        }
+
+        function removeVideo() {
+            if (uploadedVideo && uploadedVideo.url) {
+                URL.revokeObjectURL(uploadedVideo.url);
+            }
+            uploadedVideo = null;
+            document.getElementById('videoInput').value = '';
+            displayVideo();
+        }
+
+        // Générer le récapitulatif détaillé
+        function generateSummary() {
+            const configuration = document.querySelector('input[name="configuration"]:checked');
+            const furnished = document.querySelector('input[name="furnished"]:checked');
+            const status = document.querySelector('input[name="status"]:checked');
+            const floor = document.getElementById('floor');
+            const buildingType = document.getElementById('buildingType');
+            const roadCondition = document.getElementById('roadCondition');
+            const propertyCondition = document.getElementById('propertyCondition');
+            const toiletType = document.getElementById('toiletType');
+            
+            const amenitiesChecked = Array.from(document.querySelectorAll('input[name="amenities"]:checked'))
+                .map(cb => cb.nextElementSibling.textContent.trim());
+            
+            const proximityChecked = Array.from(document.querySelectorAll('input[name="proximity"]:checked'))
+                .map(cb => cb.nextElementSibling.textContent.trim());
+            
+            const rulesChecked = Array.from(document.querySelectorAll('input[name="rules"]:checked'))
+                .map(cb => cb.nextElementSibling.textContent.trim());
+            
+            // Section 1: Informations de base
+            document.getElementById('summaryBasic').innerHTML = `
+                <p style="margin-bottom: 0.6rem;"><strong>Type de bien:</strong> ${document.getElementById('roomCount').value} ${document.getElementById('propertyType').value}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Loyer:</strong> ${document.getElementById('price').value} FCFA/${document.getElementById('priceFrequency').value}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Vous êtes:</strong> ${status ? status.nextElementSibling.querySelector('.radio-title').textContent : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Disponibilité:</strong> ${document.getElementById('availability').value}</p>
+            `;
+            
+            // Section 2: Configuration et équipements
+            document.getElementById('summaryConfig').innerHTML = `
+                <p style="margin-bottom: 0.6rem;"><strong>Configuration:</strong> ${configuration ? configuration.nextElementSibling.querySelector('.radio-title').textContent : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Type de bâtiment:</strong> ${buildingType ? buildingType.options[buildingType.selectedIndex].text : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Niveau:</strong> ${floor ? floor.options[floor.selectedIndex].text : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>État:</strong> ${propertyCondition ? propertyCondition.options[propertyCondition.selectedIndex].text : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Meublé:</strong> ${furnished ? furnished.nextElementSibling.querySelector('.radio-title').textContent : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Type de toilette:</strong> ${toiletType ? toiletType.options[toiletType.selectedIndex].text : ''}</p>
+                ${amenitiesChecked.length > 0 ? `<p style="margin-bottom: 0.6rem;"><strong>Équipements:</strong> ${amenitiesChecked.join(', ')}</p>` : ''}
+                ${proximityChecked.length > 0 ? `<p style="margin-bottom: 0.6rem;"><strong>À proximité:</strong> ${proximityChecked.join(', ')}</p>` : ''}
+            `;
+            
+            // Section 3: Localisation et accès
+            document.getElementById('summaryLocation').innerHTML = `
+                <p style="margin-bottom: 0.6rem;"><strong>Adresse:</strong> ${document.getElementById('address').value}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>État de la voie:</strong> ${roadCondition ? roadCondition.options[roadCondition.selectedIndex].text : ''}</p>
+            `;
+            
+            // Section 4: Description et contact
+            const descriptionText = document.getElementById('description').value;
+            const descriptionPreview = descriptionText.length > 150 
+                ? descriptionText.substring(0, 150) + '...' 
+                : descriptionText;
+            
+            document.getElementById('summaryDescription').innerHTML = `
+                <p style="margin-bottom: 0.6rem;"><strong>Titre:</strong> ${document.getElementById('title').value}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Description:</strong></p>
+                <p style="margin-bottom: 0.6rem; padding: 0.8rem; background: white; border-radius: 6px; font-size: 0.85rem; font-style: italic; color: var(--text-medium);">"${descriptionPreview}"</p>
+                ${rulesChecked.length > 0 ? `<p style="margin-bottom: 0.6rem;"><strong>Règles:</strong> ${rulesChecked.join(', ')}</p>` : '<p style="margin-bottom: 0.6rem;"><strong>Règles:</strong> Aucune règle spécifique</p>'}
+                <p style="margin-bottom: 0.6rem;"><strong>Contact:</strong> ${document.getElementById('phone').value}</p>
+                ${document.getElementById('email').value ? `<p style="margin-bottom: 0.6rem;"><strong>Email:</strong> ${document.getElementById('email').value}</p>` : ''}
+            `;
+            
+            // Section 5: Médias
+            const videoInfo = uploadedVideo 
+                ? `✅ Vidéo ajoutée (${Math.floor(uploadedVideo.duration)}s - ${(uploadedVideo.size / (1024 * 1024)).toFixed(1)}MB)` 
+                : '⚪ Aucune vidéo';
+            
+            document.getElementById('summaryMedia').innerHTML = `
+                <p style="margin-bottom: 0.6rem;"><strong>Photos:</strong> ${uploadedPhotos.length} photos ajoutées</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Vidéo:</strong> ${videoInfo}</p>
+            `;
+        }
+
+        // Soumission du formulaire
         document.getElementById('offerForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Récupération des données
-            const formData = {
-                roomCount: document.getElementById('roomCount').value,
-                propertyType: document.getElementById('propertyType').value,
-                price: document.getElementById('price').value,
-                priceFrequency: document.getElementById('priceFrequency').value,
-                address: document.getElementById('address').value,
-                status: document.querySelector('input[name="status"]:checked').value,
-                email: document.getElementById('email').value
-            };
-
-            // Validation
-            if (!formData.roomCount || !formData.propertyType || !formData.price || !formData.address) {
-                alert('Veuillez remplir tous les champs obligatoires');
+            if (!validateStep(currentStep)) {
                 return;
             }
 
-            // Validation de l'email si fourni
-            if (formData.email) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(formData.email)) {
-                    alert('Veuillez entrer une adresse e-mail valide');
-                    return;
-                }
-            }
-
-            // Animation du bouton pendant la soumission
-            const submitBtn = this.querySelector('.btn-primary');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Chargement...';
-            submitBtn.classList.add('loading');
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.textContent = 'Publication en cours...';
             submitBtn.disabled = true;
 
             // Simulation d'envoi au serveur
             setTimeout(() => {
-                console.log('Données du formulaire:', formData);
-                
-                // Affichage du succès
-                alert('✅ Formulaire soumis avec succès !\n\nVous allez être redirigé vers l\'étape suivante.');
-                
-                // Redirection vers l'étape 2
-                // window.location.href = 'etape-2.html';
-                
-                // Réinitialisation du bouton
-                submitBtn.textContent = originalText;
-                submitBtn.classList.remove('loading');
+                alert('✅ Félicitations !\n\nVotre annonce a été publiée avec succès sur xAMi.\n\nElle est maintenant visible par tous les utilisateurs au Bénin.');
+                submitBtn.textContent = 'Publier';
                 submitBtn.disabled = false;
-            }, 1500);
+                
+                // Réinitialiser le formulaire (optionnel)
+                // window.location.reload();
+            }, 2000);
         });
 
-        // Connexion Google - REDIRECTION ACTIVE
-        document.getElementById('googleLoginBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Redirection vers Google OAuth
-            // URL à adapter selon votre configuration OAuth
-            const googleAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' + 
-                'client_id=YOUR_CLIENT_ID&' +
-                'redirect_uri=YOUR_REDIRECT_URI&' +
-                'response_type=code&' +
-                'scope=email profile&' +
-                'access_type=offline';
-            
-            // Redirection immédiate vers Google
-            window.location.href = googleAuthUrl;
-            
-            // Note: Remplacez YOUR_CLIENT_ID et YOUR_REDIRECT_URI par vos vraies valeurs
-            // Pour le développement, vous pouvez utiliser:
-            window.location.href = 'https://accounts.google.com/signin';
-        });
-
-        // Bouton Retour - RETOUR ARRIÈRE ACTIF
-        document.getElementById('backBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            // Retour à la page précédente
-            window.history.back();
-        });
-
-        // Validation en temps réel de l'email
-        document.getElementById('email').addEventListener('input', function() {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (this.value && !emailRegex.test(this.value)) {
-                this.style.borderColor = 'var(--accent-color)';
-            } else {
-                this.style.borderColor = 'var(--border-light)';
-            }
-        });
-
-        // Format automatique du prix (ajouter des espaces)
-        document.getElementById('price').addEventListener('input', function(e) {
-            let value = this.value.replace(/\s/g, '');
-            if (value) {
-                // Format avec espaces tous les 3 chiffres
-                value = value.replace(/\B(?=(\d{100})+(?!\d))/g, ' ');
-                this.value = value;
-            }
+        // Initialisation au chargement
+        window.addEventListener('DOMContentLoaded', function() {
+            showStep(1);
         });
     </script>
 </body>

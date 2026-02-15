@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Responsive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1a1a73;
+            --accent-coral: #ad6f35;
+            --accent-teal: #f4a67c;
+            --bg-soft: #f8f9fa;
+            --text-dark: #2d3436;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-soft);
+            min-height: 100vh;
+        }
+
+        header {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 19px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+            gap: 32px;
+        }
+
+        /* Logo */
+        .logo {
+            flex-shrink: 0;
+            width: 50px;
+            height: 80px;
+            border-radius: 59px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 24px;
+            transition: transform 0.3s ease;
+            margin-left: -12px;
+        }
+
+        .logo:hover {
+            transform: rotate(-5deg) scale(1.05);
+        }
+
+        /* Navigation desktop */
+        .nav-desktop {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dark);
+            border: 2px solid var(--primary-dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-dark);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-coral), var(--accent-teal));
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+
+
+     /* SECTION HERO AVEC CARROUSEL */
+        .hero-section {
+            position: relative;
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        /* Carrousel d'images */
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Overlay sombre sur les images */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(44, 76, 126, 0.8) 0%, rgba(217, 113, 54, 0.6) 100%);
+            z-index: 1;
+        }
+
+        /* Contenu Hero */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            color: #ffffff;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            max-width: 700px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease-out;
+            line-height: 1.5;
+        }
+
+        /* Barre de recherche */
+        .search-bar {
+            background: #ffffff;
+            padding: 4px;
+            border-radius: 8px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c4c7e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group select,
+        .form-group input {
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #d97136;
+            background: #ffffff;
+        }
+
+        .btn-search {
+            background: #d97136;
+            color: #ffffff;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            height: 52px;
+        }
+
+        .btn-search:hover {
+            background: #c5622b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 113, 54, 0.5);
+        }
+
+        .btn-search i {
+            font-size: 18px;
+        }
+
+        /* Indicateurs de slides */
+        .slide-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            gap: 12px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .indicator:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .indicator.active {
+            background: #ffffff;
+            width: 40px;
+            border-radius: 6px;
+        }
+
+
+        /* Bannière CTA sous la recherche - SANS ARRIÈRE-PLAN */
+        .cta-banner {
+            background: transparent;
+            /* Pas d'arrière-plan */
+            padding: 25px 30px;
+            border-radius: 0;
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            box-shadow: none;
+            /* Pas d'ombre */
+            animation: fadeInUp 1.4s ease-out;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        .cta-banner p {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            /* Texte blanc */
+            margin: 0;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            /* Ombre pour lisibilité */
+        }
+
+        .btn-cta {
+            background: #e97115;
+            color: #ffffff;
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 10px;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            /* Ombre pour faire ressortir */
+        }
+
+        .btn-cta:hover {
+            background: #da5c1d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(250, 252, 251, 0.5);
+        }
+
+        /* Responsive pour la bannière CTA */
+        @media (max-width: 768px) {
+            .cta-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 15px;
+                margin-top: 20px;
+                overflow: hidden;
+
+            }
+
+            .cta-banner p {
+                font-size: 17px;
+                flex: 1;
+                min-width: 0;
+            }
+
+            .btn-cta {
+                width: 100%;
+                padding: 14px 25px;
+                font-size: 15px;
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cta-banner {
+                padding: 18px 15px;
+                margin-top: 18px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .cta-banner p {
+                font-size: 15px;
+                white-space: nowrap;
+            }
+
+            .btn-cta {
+                padding: 13px 20px;
+                font-size: 14px;
+                flex-shrink: 0;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 40px;
+            }
+
+            .hero-content p {
+                font-size: 18px;
+            }
+
+            .search-form {
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 15px;
+            }
+
+            .logo img {
+                width: 90px;
+            }
+
+            .nav-actions {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Hero reste identique sur mobile */
+            .hero-section {
+                min-height: 550px;
+            }
+
+            .hero-content {
+                min-height: 550px;
+                padding: 50px 20px;
+                justify-content: center;
+            }
+
+            .hero-content h1 {
+                font-size: 30px;
+                margin-bottom: 15px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+
+            /* Barre de recherche : 3 champs en ligne sur mobile */
+            .search-bar {
+                padding: 5px 10px;
+            }
+
+            .search-form {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .form-group label {
+                font-size: 11px;
+            }
+
+            .form-group select,
+            .form-group input {
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+
+            .btn-search {
+                padding: 3px 5px;
+                height: 40px;
+                font-size: 10px;
+            }
+
+            .slide-indicators {
+                bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                width: 80px;
+            }
+
+            .hero-section {
+                min-height: 500px;
+            }
+
+            .hero-content {
+                min-height: 500px;
+                padding: 40px 12px;
+            }
+
+            .hero-content h1 {
+                font-size: 24px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+                margin-bottom: 25px;
+            }
+
+            /* Barre de recherche : reste en 3 colonnes */
+            .search-bar {
+                padding: 15px 10px;
+            }
+
+            .search-form {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .form-group label {
+                font-size: 10px;
+            }
+
+            .form-group select,
+            .form-group input {
+                padding: 9px 6px;
+                font-size: 12px;
+            }
+
+            .btn-search {
+                padding: 9px 10px;
+                height: 42px;
+                font-size: 13px;
+                gap: 5px;
+            }
+
+            .slide-indicators {
+                bottom: 15px;
+                gap: 8px;
+            }
+
+            .indicator {
+                width: 10px;
+                height: 10px;
+            }
+
+            .indicator.active {
+                width: 30px;
+            }
+        }
+
+
+
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                height: 50px;
+                gap: 8px;
+            }
+
+            .logo {
+                width: 35px;
+                height: 50px;
+                font-size: 16px;
+            }
+
+            /* Garde les boutons visibles sur mobile */
+            .nav-desktop {
+                display: flex;
+                gap: 8px;
+            }
+
+            /* Réduit la taille des boutons sur mobile */
+            .nav-desktop .btn {
+                padding: 6px 14px;
+                font-size: 12px;
+            }
+        }
+
+        /* Animation d'entrée */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            animation: slideDown 0.6s ease;
+        }
+
+
+        /* Styles pour le footer */
+
+                footer {
+            background: #3a3a3a;
+            color: #ffffff;
+            padding: 20px 20px 10px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .footer-section h3 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 6px;
+        }
+
+        .footer-section ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s ease;
+            font-size: 12px;
+        }
+
+        .footer-section ul li a:hover {
+            color: #64b5f6;
+        }
+
+        .footer-section ul li a i {
+            width: 16px;
+            font-size: 13px;
+        }
+
+        .social-section {
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #64b5f6;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            font-size: 11px;
+            color: #cccccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .social-section {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            footer {
+                padding: 15px 12px 8px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                justify-items: center;
+                text-align: center;
+            }
+
+            .footer-section {
+                width: 100%;
+                max-width: 160px;
+            }
+
+            .footer-section ul li a {
+                justify-content: center;
+            }
+
+            .footer-section h3 {
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
+
+            .footer-section ul li {
+                margin-bottom: 5px;
+            }
+
+            .footer-section ul li a {
+                font-size: 11px;
+                gap: 5px;
+            }
+
+            .social-section {
+                grid-column: 1 / -1;
+                max-width: 100%;
+            }
+
+            .social-links {
+                gap: 8px;
+                margin-top: 8px;
+            }
+
+            .social-links a {
+                width: 30px;
+                height: 30px;
+                font-size: 13px;
+            }
+
+            .footer-bottom {
+                padding-top: 8px;
+            }
+
+            .footer-bottom p {
+                font-size: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <img src="img/zoom_logo-removebg-preview.png" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+
+                <!-- Navigation (visible sur desktop et mobile) -->
+                <nav class="nav-desktop">
+                    <button class="btn btn-secondary">Inscription</button>
+                    <button class="btn btn-primary">Connexion</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+        <!-- SECTION HERO AVEC CARROUSEL -->
+    <section class="hero-section">
+        <!-- Carrousel d'images -->
+        <div class="hero-slider">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <img src="img/img1.jpeg"
+                    alt="Belle maison moderne">
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide">
+                <img src="img/img2.jpeg"
+                    alt="Appartement luxueux">
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide">
+                <img src="img/img3.jpeg"
+                    alt="Villa contemporaine">
+            </div>
+            <!-- Slide 4 -->
+            <div class="slide">
+                <img src="img/img4.jpeg"
+                    alt="Terrain avec vue">
+            </div>
+        </div>
+
+        <!-- Overlay -->
+        <div class="hero-overlay"></div>
+
+        <!-- Contenu Hero -->
+        <div class="hero-content">
+            <h1>Vivre, Partager,Entreprendre.</h1>
+            <p>Avec Xà Mi,trouvez votre chambre,colocation, espace de coworking ou bureau privé, partout au Bénin</p>
+
+            <!-- Barre de recherche -->
+            <div class="search-bar">
+                <form class="search-form">
+                    <div class="form-group">
+                        <select id="type" name="type">
+                            <option value="">Type de logement</option>
+                            <option value="maison">Maison</option>
+                            <option value="appartement">Appartement</option>
+                            <option value="terrain">Terrain</option>
+                            <option value="commerce">Commerce</option>
+                            <option value="bureau">Bureau</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="location" name="location" placeholder="Ville, quartier...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn-search">
+                            <i class="fas fa-search"></i>
+                            Rechercher
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="cta-banner">
+                <p>Vous recherchez un colocataire ou locataire?</p>
+                <a href="publication1.html" class="btn-cta">PUBLIER VOTRE ANNONCE</a>
+            </div>
+        </div>
+
+        <!-- Indicateurs de slides -->
+        <div class="slide-indicators">
+            <span class="indicator active" onclick="goToSlide(0)"></span>
+            <span class="indicator" onclick="goToSlide(1)"></span>
+            <span class="indicator" onclick="goToSlide(2)"></span>
+            <span class="indicator" onclick="goToSlide(3)"></span>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Services publics -->
+                <div class="footer-section">
+                    <h3>Services publics</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fas fa-info-circle"></i> À propos</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-phone"></i> Contactez nous</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contribuer -->
+                <div class="footer-section">
+                    <h3>Contribuer</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="far fa-envelope"></i> Faire une suggestion</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-edit"></i> Signaler un problème</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- En savoir plus -->
+                <div class="footer-section">
+                    <h3>En savoir plus</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fas fa-gavel"></i> Mentions légales</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-file-alt"></i> CGU</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Données personnelles -->
+                <div class="footer-section">
+                    <h3>Données personnelles</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fas fa-user-shield"></i> Exercer ses droits</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Réseaux sociaux -->
+                <div class="footer-section social-section">
+                    <h3>Suivez-nous sur</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 Portail de l'administration béninoise - service-public.bj</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+        // Carrousel automatique
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        // Changer de slide toutes les 5 secondes
+        setInterval(nextSlide, 2000);
+
+        // Recherche
+        document.querySelector('.search-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const type = document.getElementById('type').value;
+            const location = document.getElementById('location').value;
+
+            console.log('Recherche:', { type, location });
+            alert('Recherche lancée !\nType: ' + (type || 'Tous') + '\nLieu: ' + (location || 'Non spécifié'));
+        });
+    </script>
+
+</body>
+</html>
