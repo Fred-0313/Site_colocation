@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposer un bureau - xAMi</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1B2B48;
+            --secondary-color: #D4A574;
+            --accent-color: #E8763B;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #767676;
+            --bg-light: #FAFAFA;
+            --white: #ffffff;
+            --border-light: #E5E5E5;
+            --success-green: #10B981;
+            --shadow-sm: 0 2px 8px rgba(27, 43, 72, 0.06);
+            --shadow-md: 0 4px 16px rgba(27, 43, 72, 0.08);
+            --shadow-lg: 0 8px 32px rgba(27, 43, 72, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ==================== HEADER ==================== */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        main {
+            max-width: 680px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease;
+            padding: 0 1rem 3rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-container {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .subtitle {
+            color: #a65e2e;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ==================== PROGRESS BAR ==================== */
+        .progress-container {
+            background-color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .progress-steps {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #e0e0e0;
+            z-index: 0;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            z-index: 1;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            background-color: white;
+            padding: 0 10px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background-color: #a65e2e;
+            color: white;
+            box-shadow: 0 4px 12px rgba(27, 43, 72, 0.3);
+            transform: scale(1.1);
+        }
+
+        .step.completed .step-number {
+            background-color: var(--success-green);
+            color: white;
+        }
+
+        .step.completed .step-number::before {
+            content: "✓";
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .step.active .step-label {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .step.completed .step-label {
+            color: var(--success-green);
+        }
+
+        /* ==================== FORM SECTIONS ==================== */
+        .form-section {
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.875rem;
+            letter-spacing: -0.01em;
+        }
+
+        .required {
+            color: var(--accent-color);
+            margin-left: 2px;
+        }
+
+        /* ==================== INPUTS ==================== */
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--white);
+            color: var(--text-dark);
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: var(--white);
+            color: var(--text-dark);
+            height: 38px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input:hover,
+        select:hover,
+        textarea:hover {
+            border-color: #d0d0d0;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(27, 43, 72, 0.08);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%234a4a4a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 3rem;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .input-group input {
+            min-width: 0;
+        }
+
+        .input-group select {
+            min-width: 180px;
+        }
+
+        .help-text {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .help-text::before {
+            content: "ℹ";
+            font-size: 0.9rem;
+            color: #1B2B48;
+            font-weight: bold;
+            background: #E3F2FD;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: normal;
+        }
+
+        /* ==================== RADIO BUTTONS ==================== */
+        .radio-group {
+            display: grid;
+            gap: 0.6rem;
+        }
+
+        .radio-option {
+            background: var(--bg-light);
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            padding: 0.7rem 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 60px;
+        }
+
+        .radio-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .radio-option:hover {
+            border-color: var(--primary-color);
+            background: #f0f4ff;
+            transform: translateX(4px);
+        }
+
+        .radio-option.selected {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f4ff 100%);
+        }
+
+        .radio-option.selected::before {
+            transform: scaleY(1);
+        }
+
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-color);
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .radio-content {
+            flex: 1;
+        }
+
+        .radio-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+            font-size: 0.9rem;
+        }
+
+        .radio-description {
+            font-size: 0.8rem;
+            color: var(--text-medium);
+            line-height: 1.4;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+        }
+
+        .checkbox-option {
+            background: var(--bg-light);
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            padding: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .checkbox-option:hover {
+            border-color: var(--primary-color);
+            background: #f0f4ff;
+        }
+
+        .checkbox-option.selected {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f4ff 100%);
+        }
+
+        .checkbox-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        /* ==================== UPLOAD ZONE ==================== */
+        .upload-zone {
+            border: 2px dashed var(--border-light);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: var(--bg-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--primary-color);
+            background: #f0f4ff;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: var(--text-medium);
+            margin-bottom: 1rem;
+        }
+
+        .photo-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .photo-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--border-light);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* ==================== VIDEO PREVIEW ==================== */
+        .video-preview-container {
+            background: var(--bg-light);
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .video-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .video-info-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .video-icon-large {
+            font-size: 2rem;
+        }
+
+        .video-file-info {
+            flex: 1;
+        }
+
+        .video-file-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            word-break: break-word;
+        }
+
+        .video-file-meta {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .btn-remove-video {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-remove-video:hover {
+            background: #d96428;
+            transform: translateY(-2px);
+        }
+
+        .video-player-container {
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-player {
+            width: 100%;
+            max-height: 400px;
+            display: block;
+        }
+
+        /* ==================== SOCIAL LOGIN ==================== */
+        .social-login {
+            margin: 1.5rem 0;
+        }
+
+        .btn-social {
+            width: 100%;
+            padding: 0.6rem;
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: white;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .btn-google {
+            background: white;
+            color: var(--text-dark);
+            border-color: var(--border-light);
+        }
+
+        .btn-google:hover {
+            background: #f8f9fa;
+            border-color: #d0d0d0;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-google::before {
+            content: "G";
+            width: 20px;
+            height: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%234285F4' d='M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z'/%3E%3Cpath fill='%2334A853' d='M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z'/%3E%3Cpath fill='%23FBBC05' d='M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z'/%3E%3Cpath fill='%23EA4335' d='M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z'/%3E%3C/svg%3E");
+            color: white;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 1rem;
+            position: relative;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .form-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.65rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .btn-back {
+            background: transparent;
+            color: var(--text-medium);
+            border: none;
+            padding: 0.65rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .btn-back:hover {
+            color: var(--primary-color);
+            background: var(--bg-light);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1B2B48 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(27, 43, 72, 0.2);
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            max-width: 150px;
+            margin-left: auto;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 1s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(27, 43, 72, 0.3);
+            background: #a65e2e;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ==================== SUMMARY ==================== */
+        .summary-box {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .summary-box p {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .summary-box strong {
+            color: var(--primary-color);
+        }
+
+        .summary-box h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .summary-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .summary-box ul {
+            list-style: none;
+        }
+
+        .summary-box ul li {
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .summary-box ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: bold;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: var(--white);
+            border-top: 1px solid var(--border-light);
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 800px) {
+            .progress-steps {
+                padding: 0 0.5rem;
+            }
+
+            .step-label {
+                font-size: 0.7rem;
+            }
+
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group select {
+                width: 100%;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn-back {
+                order: 2;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .btn-primary {
+                order: 1;
+                max-width: 100%;
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .video-preview-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .btn-remove-video {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">xA</div>
+                xAMi
+            </a>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-steps">
+            <div class="progress-line" id="progressLine"></div>
+            <div class="step active">
+                <div class="step-number">1</div>
+                <div class="step-label">Informations</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-label">Détails</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-label">Photos</div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-label">Description</div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-label">Confirmation</div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="form-container">
+            <div class="form-header">
+                <p class="subtitle" id="stepTitle">Proposez votre bureau</p>
+            </div>
+
+            <form id="officeForm">
+                <!-- ==================== ÉTAPE 1: INFORMATIONS DE BASE ==================== -->
+                <div class="form-section active" data-step="1">
+                    <div class="form-group">
+                        <label>Type de bureau <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option selected">
+                                <input type="radio" name="officeType" value="prive" checked required>
+                                <div class="radio-content">
+                                    <div class="radio-title">Bureau privé</div>
+                                    <div class="radio-description">Espace fermé pour une personne ou équipe</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="officeType" value="partage">
+                                <div class="radio-content">
+                                    <div class="radio-title">Bureau partagé / Coworking</div>
+                                    <div class="radio-description">Espace ouvert avec postes de travail</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="officeType" value="local">
+                                <div class="radio-content">
+                                    <div class="radio-title">Local commercial avec bureau</div>
+                                    <div class="radio-description">Espace commercial incluant des bureaux</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="officeType" value="immeuble">
+                                <div class="radio-content">
+                                    <div class="radio-title">Immeuble de bureaux</div>
+                                    <div class="radio-description">Bâtiment entier ou plusieurs étages</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre de postes <span class="required">*</span></label>
+                            <select id="capacity" required>
+                                <option value="">--Sélectionner--</option>
+                                <option value="1-2">1 à 2 postes</option>
+                                <option value="3-5">3 à 5 postes</option>
+                                <option value="6-10">6 à 10 postes</option>
+                                <option value="11-20">11 à 20 postes</option>
+                                <option value="20+">Plus de 20 postes</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Surface (m²)</label>
+                            <input type="number" id="surface" placeholder="Ex: 50" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Loyer <span class="required">*</span></label>
+                        <div class="input-group">
+                            <input type="number" id="price" placeholder="Ex: 100000" min="0" required>
+                            <select id="priceFrequency">
+                                <option value="mois">FCFA/mois</option>
+                                <option value="trimestre">FCFA/trimestre</option>
+                                <option value="an">FCFA/an</option>
+                                <option value="jour">FCFA/jour</option>
+                            </select>
+                        </div>
+                        <p class="help-text">Indiquez le prix pour l'ensemble de l'espace</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Adresse du bureau <span class="required">*</span></label>
+                        <input type="text" id="address" placeholder="Ex: Boulevard de la Marina, Cotonou" required>
+                        <p class="help-text">Précisez le quartier et l'immeuble si possible</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Je suis <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option selected">
+                                <input type="radio" name="status" value="owner" checked>
+                                <div class="radio-content">
+                                    <div class="radio-title">Propriétaire</div>
+                                    <div class="radio-description">Je suis propriétaire du local</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="status" value="agency">
+                                <div class="radio-content">
+                                    <div class="radio-title">Agence / Gestionnaire</div>
+                                    <div class="radio-description">Je gère des espaces professionnels</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="status" value="company">
+                                <div class="radio-content">
+                                    <div class="radio-title">Entreprise</div>
+                                    <div class="radio-description">Sous-location d'espace dans nos locaux</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="social-login">
+                        <button type="button" class="btn-social btn-google" id="googleLoginBtn">
+                            Continuer avec Google
+                        </button>
+                    </div>
+
+                    <div class="divider">
+                        <span>ou continuer avec email</span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="votre.email@entreprise.com">
+                        <p class="help-text">Nous en assurerons la sécurité et ne l'afficherons pas publiquement</p>
+                    </div>
+                </div>
+
+                <!-- ==================== ÉTAPE 2: DÉTAILS DU BUREAU ==================== -->
+                <div class="form-section" data-step="2">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Type de bâtiment <span class="required">*</span></label>
+                            <select id="buildingType" required>
+                                <option value="">--Sélectionner--</option>
+                                <option value="immeuble-moderne">Immeuble moderne</option>
+                                <option value="immeuble-classique">Immeuble classique</option>
+                                <option value="villa-amenagee">Villa aménagée</option>
+                                <option value="centre-affaires">Centre d'affaires</option>
+                                <option value="zone-industrielle">Zone industrielle</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Étage <span class="required">*</span></label>
+                            <select id="floor" required>
+                                <option value="">--Sélectionner--</option>
+                                <option value="rdc">Rez-de-chaussée</option>
+                                <option value="1">1er étage</option>
+                                <option value="2">2ème étage</option>
+                                <option value="3">3ème étage</option>
+                                <option value="4+">4ème étage et plus</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Accessibilité <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="accessibility" value="route-principale" required>
+                                <div class="radio-content">
+                                    <div class="radio-title">Route principale</div>
+                                    <div class="radio-description">Accès direct depuis voie goudronnée</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="accessibility" value="rue-secondaire">
+                                <div class="radio-content">
+                                    <div class="radio-title">Rue secondaire</div>
+                                    <div class="radio-description">Dans une rue adjacente</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="accessibility" value="zone-residentielle">
+                                <div class="radio-content">
+                                    <div class="radio-title">Zone résidentielle</div>
+                                    <div class="radio-description">Dans un quartier calme</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>État de l'espace <span class="required">*</span></label>
+                        <select id="condition" required>
+                            <option value="">--Sélectionner--</option>
+                            <option value="neuf">Neuf / Récemment rénové</option>
+                            <option value="excellent">Excellent état</option>
+                            <option value="bon">Bon état</option>
+                            <option value="a-renover">À rafraîchir</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Configuration <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="layout" value="open-space" required>
+                                <div class="radio-content">
+                                    <div class="radio-title">Open space</div>
+                                    <div class="radio-description">Espace ouvert modulable</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="layout" value="bureaux-separes">
+                                <div class="radio-content">
+                                    <div class="radio-title">Bureaux séparés</div>
+                                    <div class="radio-description">Plusieurs bureaux fermés</div>
+                                </div>
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="layout" value="mixte">
+                                <div class="radio-content">
+                                    <div class="radio-title">Mixte</div>
+                                    <div class="radio-description">Open space + bureaux fermés</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Équipements de base</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="climatisation">
+                                <div class="checkbox-title">Climatisation</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="electricite-secours">
+                                <div class="checkbox-title">Groupe électrogène</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="internet">
+                                <div class="checkbox-title">Internet/Fibre</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="parking">
+                                <div class="checkbox-title">Parking</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="salle-reunion">
+                                <div class="checkbox-title">Salle de réunion</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="cuisine">
+                                <div class="checkbox-title">Coin cuisine</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="toilettes">
+                                <div class="checkbox-title">Toilettes modernes</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="meuble">
+                                <div class="checkbox-title">Meublé</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="ascenseur">
+                                <div class="checkbox-title">Ascenseur</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="securite">
+                                <div class="checkbox-title">Sécurité/Gardien</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="accueil">
+                                <div class="checkbox-title">Espace d'accueil</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="amenities" value="eau-courante">
+                                <div class="checkbox-title">Eau courante</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>À proximité</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="transport">
+                                <div class="checkbox-title">Transport en commun</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="banque">
+                                <div class="checkbox-title">Banques</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="restaurant">
+                                <div class="checkbox-title">Restaurants/Maquis</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="commerce">
+                                <div class="checkbox-title">Commerces</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="hotel">
+                                <div class="checkbox-title">Hôtels</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="proximity" value="aeroport">
+                                <div class="checkbox-title">Aéroport</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date de disponibilité <span class="required">*</span></label>
+                        <input type="text" id="availability" placeholder="Ex: Immédiat ou 01/04/2025" required>
+                        <p class="help-text">Indiquez quand le bureau sera disponible</p>
+                    </div>
+                </div>
+
+                <!-- ==================== ÉTAPE 3: PHOTOS ET VIDÉO ==================== -->
+                <div class="form-section" data-step="3">
+                    <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid #ffc107;">
+                        <p style="margin: 0; font-size: 0.85rem; color: #856404;">
+                            <strong> Conseils :</strong> Prenez des photos professionnelles en journée. Montrez l'espace de travail, la salle de réunion, les équipements, l'accueil et l'extérieur du bâtiment.
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Photos du bureau <span class="required">*</span></label>
+                        <div class="upload-zone" onclick="document.getElementById('photoInput').click()">
+                            <div class="upload-icon">  </div>
+                            <p class="upload-text">Cliquez pour ajouter des photos</p>
+                            <input type="file" id="photoInput" accept="image/jpeg,image/jpg,image/png" multiple style="display: none;">
+                        </div>
+                        <p class="help-text">Minimum 3 photos - Maximum 5MB par photo (JPG, PNG)</p>
+                        <div class="photo-preview" id="photoPreview"></div>
+                    </div>
+
+                    <div style="background: var(--bg-light); padding: 1.2rem; border-radius: 8px; margin-top: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.8rem; font-size: 0.9rem; color: var(--text-dark);">
+                            Photos recommandées :
+                        </p>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; font-size: 0.85rem; color: var(--text-medium);">
+                            <div>✓ Espace de travail</div>
+                            <div>✓ Salle de réunion</div>
+                            <div>✓ Accueil/Réception</div>
+                            <div>✓ Équipements</div>
+                            <div>✓ Parking</div>
+                            <div>✓ Façade du bâtiment</div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 2.5rem 0; border-top: 2px solid var(--border-light); position: relative;">
+                        <span style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: white; padding: 0 1rem; color: var(--text-light); font-size: 0.85rem;">
+                            Optionnel
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Vidéo de visite 
+                            <span style="color: var(--text-light); font-weight: 400; font-size: 0.85rem;">(recommandé mais optionnel)</span>
+                        </label>
+                        <div class="upload-zone" onclick="document.getElementById('videoInput').click()">
+                            <div class="upload-icon">🎥</div>
+                            <p class="upload-text">Ajoutez une visite vidéo de l'espace</p>
+                            <input type="file" id="videoInput" accept="video/mp4,video/mov,video/avi,video/webm" style="display: none;">
+                        </div>
+                        <p class="help-text">Filmez une visite de l'espace - Max 2 minutes et 50MB</p>
+                        <div id="videoPreview"></div>
+                    </div>
+                </div>
+
+                <!-- ==================== ÉTAPE 4: DESCRIPTION ==================== -->
+                <div class="form-section" data-step="4">
+                    <div class="form-group">
+                        <label>Titre de l'annonce <span class="required">*</span></label>
+                        <input type="text" id="title" placeholder="Ex: Bureau moderne 5 postes - Cotonou centre" required maxlength="100">
+                        <p class="help-text">Maximum 100 caractères</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description détaillée <span class="required">*</span></label>
+                        <textarea id="description" placeholder="Décrivez l'espace : configuration, équipements, services inclus, environnement professionnel..." required></textarea>
+                        <p class="help-text">Mettez en valeur les atouts de votre espace</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Type d'activités acceptées</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="activities" value="tertiaire">
+                                <div class="checkbox-title">Activités tertiaires</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="activities" value="consultation">
+                                <div class="checkbox-title">Consultation/Conseil</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="activities" value="tech">
+                                <div class="checkbox-title">Tech/Digital</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="activities" value="finance">
+                                <div class="checkbox-title">Finance/Assurance</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="activities" value="formation">
+                                <div class="checkbox-title">Formation</div>
+                            </label>
+
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="activities" value="ong">
+                                <div class="checkbox-title">ONG/Association</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Numéro de téléphone <span class="required">*</span></label>
+                        <input type="text" id="phone" placeholder="+229 XX XX XX XX" required>
+                        <p class="help-text">Les entreprises vous contacteront via ce numéro</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nom de l'entreprise (optionnel)</label>
+                        <input type="text" id="companyName" placeholder="Ex: Votre entreprise">
+                    </div>
+                </div>
+
+                <!-- ==================== ÉTAPE 5: CONFIRMATION ==================== -->
+                <div class="form-section" data-step="5">
+                    <div style="text-align: center; padding: 1rem 0;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
+                        <h2 style="color: var(--primary-color); margin-bottom: 1rem; font-family: 'Playfair Display', serif;">Votre annonce est prête !</h2>
+                        <p style="color: var(--text-medium); margin-bottom: 2rem; font-size: 0.95rem;">Vérifiez attentivement toutes les informations avant de publier</p>
+
+                        <div class="summary-box" style="text-align: left;">
+                            <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.1rem; border-bottom: 2px solid var(--border-light); padding-bottom: 0.8rem;">
+                                 Récapitulatif de votre annonce
+                            </h3>
+                            
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--secondary-color); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 600;">
+                                    Informations générales
+                                </h4>
+                                <div id="summaryBasic" style="padding-left: 1rem; border-left: 3px solid var(--secondary-color);"></div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--secondary-color); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 600;">
+                                    Configuration et équipements
+                                </h4>
+                                <div id="summaryConfig" style="padding-left: 1rem; border-left: 3px solid var(--secondary-color);"></div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--secondary-color); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 600;">
+                                    Localisation et accès
+                                </h4>
+                                <div id="summaryLocation" style="padding-left: 1rem; border-left: 3px solid var(--secondary-color);"></div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--secondary-color); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 600;">
+                                    Description et contact
+                                </h4>
+                                <div id="summaryDescription" style="padding-left: 1rem; border-left: 3px solid var(--secondary-color);"></div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--secondary-color); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 600;">
+                                    Médias
+                                </h4>
+                                <div id="summaryMedia" style="padding-left: 1rem; border-left: 3px solid var(--secondary-color);"></div>
+                            </div>
+                        </div>
+
+                        <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: left; border-left: 4px solid var(--success-green);">
+                            <h4 style="color: var(--success-green); font-size: 1rem; margin-bottom: 1rem; font-weight: 600;">
+                                Conseils pour réussir votre location
+                            </h4>
+                            <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-medium); font-size: 0.85rem; line-height: 1.8;">
+                                <li>Répondez rapidement aux demandes des entreprises</li>
+                                <li>Soyez flexible pour les visites pendant les heures d'ouverture</li>
+                                <li>Préparez les documents : bail commercial, règlement intérieur</li>
+                                <li>Mentionnez les charges incluses ou non dans le loyer</li>
+                                <li>Informez sur les conditions de résiliation et durée du bail</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: #fff3e0; padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: left; border-left: 4px solid #ff9800;">
+                            <h4 style="color: #f57c00; font-size: 1rem; margin-bottom: 1rem; font-weight: 600;">
+                                ⚠️ Rappels importants
+                            </h4>
+                            <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-medium); font-size: 0.85rem; line-height: 1.8;">
+                                <li>Votre numéro de téléphone sera visible sur l'annonce</li>
+                                <li>Assurez-vous que toutes les informations sont exactes</li>
+                                <li>Les fausses annonces sont interdites et peuvent être signalées</li>
+                                <li>L'annonce sera visible publiquement sur la plateforme xAMi</li>
+                            </ul>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 2rem;">
+                            <label class="checkbox-option" style="justify-content: center; background: white; border: 2px solid var(--primary-color);">
+                                <input type="checkbox" id="termsAccept" required>
+                                <div class="checkbox-title" style="font-size: 0.95rem;">
+                                    J'accepte les conditions d'utilisation et je confirme que toutes les informations fournies sont exactes
+                                </div>
+                            </label>
+                        </div>
+
+                        <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-medium);">
+                            <p style="margin: 0;">
+                                Votre annonce sera publiée immédiatement et visible par toutes les entreprises au Bénin.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-back" id="backBtn" style="display: none;">Retour</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">Continuer</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Publier</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p class="footer-text">© 2025 xAMi - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+        let uploadedPhotos = [];
+        let uploadedVideo = null;
+
+        const stepTitles = {
+            1: 'Informations générales',
+            2: 'Détails et équipements',
+            3: 'Photos et vidéo',
+            4: 'Description et contact',
+            5: 'Confirmation'
+        };
+
+        // Navigation
+        function showStep(step) {
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const currentSection = document.querySelector(`[data-step="${step}"]`);
+            if (currentSection) {
+                currentSection.classList.add('active');
+            }
+
+            document.getElementById('stepTitle').textContent = stepTitles[step];
+
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            backBtn.style.display = step === 1 ? 'none' : 'flex';
+            nextBtn.style.display = step === totalSteps ? 'none' : 'block';
+            submitBtn.style.display = step === totalSteps ? 'block' : 'none';
+
+            updateProgressBar(step);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateProgressBar(step) {
+            const progressLine = document.getElementById('progressLine');
+            const steps = document.querySelectorAll('.step');
+            
+            const progressPercentage = ((step - 1) / (totalSteps - 1)) * 100;
+            progressLine.style.width = progressPercentage + '%';
+            
+            steps.forEach((stepEl, index) => {
+                stepEl.classList.remove('active', 'completed');
+                
+                if (index + 1 < step) {
+                    stepEl.classList.add('completed');
+                } else if (index + 1 === step) {
+                    stepEl.classList.add('active');
+                }
+            });
+        }
+
+        function validateStep(step) {
+            const section = document.querySelector(`[data-step="${step}"]`);
+            const requiredInputs = section.querySelectorAll('[required]');
+            
+            for (let input of requiredInputs) {
+                if (input.type === 'radio') {
+                    const radioGroup = section.querySelectorAll(`[name="${input.name}"]`);
+                    const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+                    if (!isChecked) {
+                        alert('Veuillez sélectionner une option pour tous les champs obligatoires');
+                        return false;
+                    }
+                } else if (input.type === 'checkbox' && input.id === 'termsAccept') {
+                    if (!input.checked) {
+                        alert('Veuillez accepter les conditions d\'utilisation');
+                        return false;
+                    }
+                } else if (!input.value) {
+                    alert('Veuillez remplir tous les champs obligatoires');
+                    input.focus();
+                    return false;
+                }
+            }
+
+            if (step === 3 && uploadedPhotos.length < 3) {
+                alert('Veuillez ajouter au moins 3 photos');
+                return false;
+            }
+
+            return true;
+        }
+
+        // Boutons navigation
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            if (validateStep(currentStep)) {
+                currentStep++;
+                showStep(currentStep);
+                
+                if (currentStep === 5) {
+                    generateSummary();
+                }
+            }
+        });
+
+        document.getElementById('backBtn').addEventListener('click', function() {
+            currentStep--;
+            showStep(currentStep);
+        });
+
+        // Radio buttons
+        document.querySelectorAll('.radio-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                
+                const name = radio.getAttribute('name');
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.closest('.radio-option').classList.remove('selected');
+                });
+                
+                this.classList.add('selected');
+            });
+        });
+
+        // Checkboxes
+        document.querySelectorAll('.checkbox-option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                if (e.target.type !== 'checkbox') {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                }
+                
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                if (checkbox.checked) {
+                    this.classList.add('selected');
+                } else {
+                    this.classList.remove('selected');
+                }
+            });
+        });
+
+        // Upload photos
+        document.getElementById('photoInput').addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            
+            files.forEach(file => {
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('La photo ' + file.name + ' dépasse 5MB');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedPhotos.push({
+                        name: file.name,
+                        data: event.target.result
+                    });
+                    displayPhotos();
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        function displayPhotos() {
+            const preview = document.getElementById('photoPreview');
+            preview.innerHTML = '';
+            
+            uploadedPhotos.forEach((photo, index) => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                photoItem.innerHTML = `
+                    <img src="${photo.data}" alt="${photo.name}">
+                    <button type="button" class="photo-remove" onclick="removePhoto(${index})">×</button>
+                `;
+                preview.appendChild(photoItem);
+            });
+        }
+
+        function removePhoto(index) {
+            uploadedPhotos.splice(index, 1);
+            displayPhotos();
+        }
+
+        // Upload vidéo
+        document.getElementById('videoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            
+            if (!file) return;
+            
+            const maxSize = 50 * 1024 * 1024;
+            if (file.size > maxSize) {
+                alert('❌ La vidéo est trop volumineuse.\n\nTaille maximale : 50MB\nVotre vidéo : ' + (file.size / (1024 * 1024)).toFixed(1) + 'MB');
+                this.value = '';
+                return;
+            }
+            
+            if (!file.type.startsWith('video/')) {
+                alert('❌ Veuillez sélectionner un fichier vidéo valide (MP4, MOV, AVI, WebM).');
+                this.value = '';
+                return;
+            }
+            
+            const videoURL = URL.createObjectURL(file);
+            const tempVideo = document.createElement('video');
+            tempVideo.preload = 'metadata';
+            
+            tempVideo.onloadedmetadata = function() {
+                window.URL.revokeObjectURL(tempVideo.src);
+                const duration = tempVideo.duration;
+                
+                if (duration > 120) {
+                    const mins = Math.floor(duration / 60);
+                    const secs = Math.floor(duration % 60);
+                    alert(`❌ La vidéo est trop longue.\n\nDurée maximale : 2 minutes\nVotre vidéo : ${mins}:${secs.toString().padStart(2, '0')}`);
+                    document.getElementById('videoInput').value = '';
+                    URL.revokeObjectURL(videoURL);
+                    return;
+                }
+                
+                uploadedVideo = {
+                    file: file,
+                    name: file.name,
+                    size: file.size,
+                    duration: duration,
+                    url: videoURL
+                };
+                
+                displayVideo();
+            };
+            
+            tempVideo.onerror = function() {
+                alert('❌ Impossible de lire cette vidéo. Veuillez essayer un autre fichier.');
+                document.getElementById('videoInput').value = '';
+                URL.revokeObjectURL(videoURL);
+            };
+            
+            tempVideo.src = videoURL;
+        });
+
+        function displayVideo() {
+            const preview = document.getElementById('videoPreview');
+            
+            if (!uploadedVideo) {
+                preview.innerHTML = '';
+                return;
+            }
+            
+            const sizeMB = (uploadedVideo.size / (1024 * 1024)).toFixed(1);
+            const minutes = Math.floor(uploadedVideo.duration / 60);
+            const seconds = Math.floor(uploadedVideo.duration % 60);
+            const durationText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            preview.innerHTML = `
+                <div class="video-preview-container">
+                    <div class="video-preview-header">
+                        <div class="video-info-section">
+                            <div class="video-icon-large">🎥</div>
+                            <div class="video-file-info">
+                                <div class="video-file-name">${uploadedVideo.name}</div>
+                                <div class="video-file-meta">${sizeMB} MB • Durée: ${durationText}</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-remove-video" onclick="removeVideo()">
+                            🗑️ Supprimer
+                        </button>
+                    </div>
+                    <div class="video-player-container">
+                        <video class="video-player" controls preload="metadata">
+                            <source src="${uploadedVideo.url}" type="${uploadedVideo.file.type}">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                </div>
+            `;
+        }
+
+        function removeVideo() {
+            if (uploadedVideo && uploadedVideo.url) {
+                URL.revokeObjectURL(uploadedVideo.url);
+            }
+            uploadedVideo = null;
+            document.getElementById('videoInput').value = '';
+            displayVideo();
+        }
+
+        // Générer le récapitulatif
+        function generateSummary() {
+            const officeType = document.querySelector('input[name="officeType"]:checked');
+            const accessibility = document.querySelector('input[name="accessibility"]:checked');
+            const layout = document.querySelector('input[name="layout"]:checked');
+            const status = document.querySelector('input[name="status"]:checked');
+            const capacity = document.getElementById('capacity');
+            const buildingType = document.getElementById('buildingType');
+            const floor = document.getElementById('floor');
+            const condition = document.getElementById('condition');
+            
+            const amenitiesChecked = Array.from(document.querySelectorAll('input[name="amenities"]:checked'))
+                .map(cb => cb.nextElementSibling.textContent.trim());
+            
+            const proximityChecked = Array.from(document.querySelectorAll('input[name="proximity"]:checked'))
+                .map(cb => cb.nextElementSibling.textContent.trim());
+            
+            const activitiesChecked = Array.from(document.querySelectorAll('input[name="activities"]:checked'))
+                .map(cb => cb.nextElementSibling.textContent.trim());
+            
+            // Section 1: Informations générales
+            const surface = document.getElementById('surface').value;
+            document.getElementById('summaryBasic').innerHTML = `
+                <p style="margin-bottom: 0.6rem;"><strong>Type:</strong> ${officeType ? officeType.nextElementSibling.querySelector('.radio-title').textContent : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Capacité:</strong> ${capacity ? capacity.options[capacity.selectedIndex].text : ''}</p>
+                ${surface ? `<p style="margin-bottom: 0.6rem;"><strong>Surface:</strong> ${surface} m²</p>` : ''}
+                <p style="margin-bottom: 0.6rem;"><strong>Loyer:</strong> ${document.getElementById('price').value} FCFA/${document.getElementById('priceFrequency').value}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Vous êtes:</strong> ${status ? status.nextElementSibling.querySelector('.radio-title').textContent : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Disponibilité:</strong> ${document.getElementById('availability').value}</p>
+            `;
+            
+            // Section 2: Configuration et équipements
+            document.getElementById('summaryConfig').innerHTML = `
+                <p style="margin-bottom: 0.6rem;"><strong>Configuration:</strong> ${layout ? layout.nextElementSibling.querySelector('.radio-title').textContent : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Type de bâtiment:</strong> ${buildingType ? buildingType.options[buildingType.selectedIndex].text : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Étage:</strong> ${floor ? floor.options[floor.selectedIndex].text : ''}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>État:</strong> ${condition ? condition.options[condition.selectedIndex].text : ''}</p>
+                ${amenitiesChecked.length > 0 ? `<p style="margin-bottom: 0.6rem;"><strong>Équipements:</strong> ${amenitiesChecked.join(', ')}</p>` : ''}
+                ${proximityChecked.length > 0 ? `<p style="margin-bottom: 0.6rem;"><strong>À proximité:</strong> ${proximityChecked.join(', ')}</p>` : ''}
+            `;
+            
+            // Section 3: Localisation et accès
+            document.getElementById('summaryLocation').innerHTML = `
+                <p style="margin-bottom: 0.6rem;"><strong>Adresse:</strong> ${document.getElementById('address').value}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Accessibilité:</strong> ${accessibility ? accessibility.nextElementSibling.querySelector('.radio-title').textContent : ''}</p>
+            `;
+            
+            // Section 4: Description et contact
+            const descriptionText = document.getElementById('description').value;
+            const descriptionPreview = descriptionText.length > 150 
+                ? descriptionText.substring(0, 150) + '...' 
+                : descriptionText;
+            
+            const companyName = document.getElementById('companyName').value;
+            document.getElementById('summaryDescription').innerHTML = `
+                <p style="margin-bottom: 0.6rem;"><strong>Titre:</strong> ${document.getElementById('title').value}</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Description:</strong></p>
+                <p style="margin-bottom: 0.6rem; padding: 0.8rem; background: white; border-radius: 6px; font-size: 0.85rem; font-style: italic; color: var(--text-medium);">"${descriptionPreview}"</p>
+                ${activitiesChecked.length > 0 ? `<p style="margin-bottom: 0.6rem;"><strong>Activités acceptées:</strong> ${activitiesChecked.join(', ')}</p>` : ''}
+                <p style="margin-bottom: 0.6rem;"><strong>Contact:</strong> ${document.getElementById('phone').value}</p>
+                ${companyName ? `<p style="margin-bottom: 0.6rem;"><strong>Entreprise:</strong> ${companyName}</p>` : ''}
+                ${document.getElementById('email').value ? `<p style="margin-bottom: 0.6rem;"><strong>Email:</strong> ${document.getElementById('email').value}</p>` : ''}
+            `;
+            
+            // Section 5: Médias
+            const videoInfo = uploadedVideo 
+                ? `✅ Vidéo ajoutée (${Math.floor(uploadedVideo.duration)}s - ${(uploadedVideo.size / (1024 * 1024)).toFixed(1)}MB)` 
+                : '⚪ Aucune vidéo';
+            
+            document.getElementById('summaryMedia').innerHTML = `
+                <p style="margin-bottom: 0.6rem;"><strong>Photos:</strong> ${uploadedPhotos.length} photos ajoutées</p>
+                <p style="margin-bottom: 0.6rem;"><strong>Vidéo:</strong> ${videoInfo}</p>
+            `;
+        }
+
+        // Soumission du formulaire
+        document.getElementById('officeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.textContent = 'Publication en cours...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                alert('✅ Félicitations !\n\nVotre annonce de bureau a été publiée avec succès sur xAMi.\n\nElle est maintenant visible par toutes les entreprises au Bénin.');
+                submitBtn.textContent = 'Publier';
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Initialisation
+        window.addEventListener('DOMContentLoaded', function() {
+            showStep(1);
+        });
+    </script>
+</body>
+</html>
