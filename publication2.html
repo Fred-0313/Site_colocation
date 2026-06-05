@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposer un bien - Xà mi</title>
+    <link rel="stylesheet" href="css/style_publication_annonces.css">
+    <!-- Font Awesome removed: using inline SVGs for icons -->
+    <style>
+        :root {
+            --primary-orange: #f97316;
+            --primary-orange-dark: #d35400;
+            --card-border: #e5e7eb;
+            --step-text: #9ca3af;
+            --icon-size: 72px; /* icônes un peu plus grandes */
+        }
+
+        body {
+            background: #f8fafc;
+            color: #111827;
+        }
+
+        header {
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* centrer le logo horizontalement */
+        }
+
+        .logo img {
+            height: 84px; /* logo un peu plus gros */
+            width: auto;
+            display: block;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            text-decoration: none;
+        }
+
+        .page-container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        .page-heading {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-heading p {
+            color: #6b7280;
+            max-width: 680px;
+            margin: 0.75rem auto 0;
+            line-height: 1.8;
+        }
+
+        .progress-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.6rem 1.8rem;
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+            margin-bottom: 1.75rem;
+        }
+
+        .progress-step-list {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .progress-step {
+            flex: 1 1 0;
+            text-align: center;
+            font-weight: 700;
+            color: var(--step-text);
+            text-transform: uppercase;
+            font-size: 0.82rem;
+            letter-spacing: 0.08em;
+        }
+
+        .progress-track {
+            position: relative;
+            background: #e5e7eb;
+            height: 8px;
+            border-radius: 999px;
+            margin-top: 1.2rem;
+            overflow: hidden;
+        }
+
+        .progress-track::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            width: 24%;
+            background: var(--primary-orange);
+            border-radius: 999px;
+        }
+
+        .card-panel {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+        }
+
+        .section-label {
+            color: #4b5563;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* deux cartes par ligne */
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .type-card {
+            border: 1.8px solid var(--card-border);
+            border-radius: 22px;
+            padding: 1.5rem 1.4rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-height: 160px;
+            justify-content: flex-start;
+            align-items: flex-start; /* aligner texte à gauche */
+            background: #ffffff;
+        }
+
+        .type-card:hover {
+            border-color: var(--primary-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 18px 35px rgba(249, 115, 22, 0.12);
+        }
+
+        .type-card.selected {
+            border-color: var(--primary-orange);
+            background: rgba(249, 115, 22, 0.08);
+        }
+
+        .type-icon {
+            width: var(--icon-size);
+            height: var(--icon-size);
+            border-radius: 14px;
+            background: rgba(249, 115, 22, 0.10);
+            display: grid;
+            place-items: center;
+            color: var(--primary-orange);
+            font-size: 1.35rem;
+            border: 2px solid transparent;
+            margin: 0 0 0.8rem; /* aligner l'icône à gauche */
+        }
+
+        .type-icon svg {
+            color: var(--primary-orange) !important;
+            stroke: var(--primary-orange) !important;
+            fill: none !important;
+        }
+
+        /* Tous les traits (rect, path, circle) en orange */
+        .type-icon svg rect,
+        .type-icon svg path,
+        .type-icon svg circle,
+        .type-icon svg line,
+        .type-icon svg polyline,
+        .type-icon svg polygon {
+            stroke: var(--primary-orange) !important;
+            fill: none !important;
+        }
+
+        /* Exception : éléments explicitement remplis (ex: lampe de chevet sur l'icône Chambre) */
+        .type-icon svg [fill="currentColor"] {
+            fill: var(--primary-orange) !important;
+        }
+
+        .type-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #111827;
+            text-align: left;
+            width: 100%;
+        }
+
+        .type-desc {
+            color: #6b7280;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-top: auto;
+            text-align: left;
+            width: 100%;
+        }
+
+        .price-card {
+            background: #ffffff;
+            border: 1.5px solid rgba(15,23,42,0.08);
+            border-radius: 28px;
+            padding: 2rem 1.8rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-card .price-label {
+            color: #111827;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+
+        .price-display {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 0.75rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .price-display input {
+            width: 180px;
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: right;
+            border: none;
+            outline: none;
+            background: transparent;
+        }
+
+        .price-currency {
+            color: #5b6680;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .price-note {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .toggle-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.4rem 1.6rem;
+            border-radius: 20px;
+            background: #f8f3e9;
+            border: 1px solid rgba(194, 145, 82, 0.18);
+        }
+
+        .toggle-panel .toggle-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .toggle-panel .toggle-copy {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 54px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: #d1d5db;
+            border-radius: 999px;
+            transition: 0.25s ease;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            width: 22px;
+            height: 22px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+            transition: 0.25s ease;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background: #d55e1d;
+        }
+
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(24px);
+        }
+
+        .form-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        /* Barre d'actions fixe (boutons bas) */
+        .action-bar {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 24px;
+            max-width: 1080px;
+            width: calc(100% - 48px);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 2000;
+            pointer-events: auto;
+        }
+
+        .action-bar .btn-secondary {
+            flex: 0 0 120px;
+            border-radius: 999px;
+            padding: 12px 18px;
+            background: #ffffff;
+            border: 1.5px solid #e6e6e6;
+        }
+
+        .action-bar .btn-primary {
+            flex: 1 1 auto;
+            border-radius: 999px;
+            padding: 16px 28px;
+            box-shadow: 0 12px 30px rgba(249, 115, 22, 0.16);
+            font-size: 1.05rem;
+            color: #ffffff;
+        }
+
+        /* Masquer l'ancienne form-actions (on utilise la barre fixe) */
+        .card-panel .form-actions { display: none; }
+
+        .btn-primary {
+            background: var(--primary-orange);
+            border-color: var(--primary-orange);
+            min-width: 260px;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-orange-dark);
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            border-color: #d1d5db;
+            color: #111827;
+        }
+
+        .btn-secondary:hover {
+            background: #fafafa;
+        }
+
+        @media (max-width: 720px) {
+            .progress-step-list {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .progress-step {
+                text-align: left;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <a href="Page_acceuil.html" class="logo">
+                <img src="img/Img_logo.png" alt="Xà mi">
+            </a>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <section class="page-heading">
+            <h1>Proposer un bien</h1>
+            <p>Sélectionnez le type de bien que vous proposez afin de continuer vers les informations et les photos.</p>
+        </section>
+
+        <div class="progress-card">
+            <div class="progress-step-list">
+                <span class="progress-step">Type</span>
+                <span class="progress-step">Infos</span>
+                <span class="progress-step">Photos</span>
+                <span class="progress-step">Prix</span>
+            </div>
+            <div class="progress-track"></div>
+        </div>
+
+        <article class="card-panel">
+            <form id="publishForm">
+                <!-- STEP 1: Type -->
+                <div class="form-section active" data-section="1">
+                    <div style="margin-bottom: 2rem;">
+                        <h2 style="font-size: 1.75rem; color: #111827; margin-bottom: 0.5rem;">Type de bien</h2>
+                        <p style="color: #6b7280; line-height: 1.8;">Sélectionnez la catégorie qui correspond le mieux à votre bien pour accélérer la publication.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <div class="section-label">Logements résidentiels</div>
+                        <div class="type-grid">
+                            <div class="type-card" data-type="chambre">
+                                <div class="type-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <rect x="2" y="7" width="20" height="8" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+                                        <rect x="3" y="9" width="6" height="4" rx="0.6" fill="currentColor" />
+                                        <path d="M2 17v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                        <path d="M22 17v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div class="type-name">Chambre</div>
+                                <div class="type-desc">Chambre meublée ou vide</div>
+                            </div>
+                            <div class="type-card" data-type="studio">
+                                <div class="type-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M7 11.5v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <rect x="9" y="13" width="6" height="4" rx="0.6" stroke="currentColor" stroke-width="1.6"/>
+                                    </svg>
+                                </div>
+                                <div class="type-name">Studio</div>
+                                <div class="type-desc">Studio tout équipé</div>
+                            </div>
+                            <div class="type-card" data-type="appartement">
+                                <div class="type-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <rect x="4" y="3" width="12" height="18" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+                                        <path d="M16 7h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                        <path d="M8 7h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                        <path d="M8 11h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                        <path d="M8 15h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                        <path d="M16 11h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                        <path d="M16 15h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                        <path d="M6 21v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div class="type-name">Appartement</div>
+                                <div class="type-desc">Appartement 2+ pièces</div>
+                            </div>
+                            <div class="type-card" data-type="villa">
+                                <div class="type-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <rect x="5" y="11.5" width="14" height="8" rx="1" stroke="currentColor" stroke-width="1.6"/>
+                                        <path d="M14 4v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div class="type-name">Villa</div>
+                                <div class="type-desc">Villa de standing</div>
+                            </div>
+                            <div class="type-card" data-type="maison">
+                                <div class="type-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M7 11.5v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="type-name">Maison</div>
+                                <div class="type-desc">Maison individuelle</div>
+                            </div>
+                            <div class="type-card" data-type="colocation">
+                                <div class="type-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M17 21v-2a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/>
+                                        <path d="M21 21v-2a2 2 0 0 0-2-2h-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                                        <circle cx="17" cy="9" r="2" stroke="currentColor" stroke-width="1.6"/>
+                                    </svg>
+                                </div>
+                                <div class="type-name">Colocation</div>
+                                <div class="type-desc">Espace partagé</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="section-label">Espaces professionnels</div>
+                        <div class="type-grid">
+                            <div class="type-card" data-type="bureau">
+                                <div class="type-icon" style="color:#f97316;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:#f97316;">
+                                        <rect x="3" y="7" width="18" height="12" rx="2" stroke="#f97316" stroke-width="1.6" fill="none"/>
+                                        <path d="M8 7V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1" stroke="#f97316" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+                                        <path d="M3 13h18" stroke="#f97316" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+                                    </svg>
+                                </div>
+                                <div class="type-name">Bureau</div>
+                                <div class="type-desc">Bureau privé ou partagé pour entreprise</div>
+                            </div>
+                            <div class="type-card" data-type="coworking">
+                                <div class="type-icon" style="color:#f97316;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:#f97316;">
+                                        <rect x="3" y="5" width="18" height="12" rx="1.2" stroke="#f97316" stroke-width="1.6" fill="none"/>
+                                        <path d="M2 19h20" stroke="#f97316" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+                                    </svg>
+                                </div>
+                                <div class="type-name">Coworking</div>
+                                <div class="type-desc">Postes de travail en espace partagé</div>
+                            </div>
+                            <div class="type-card" data-type="boutique">
+                                <div class="type-icon" style="color:#f97316;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:#f97316;">
+                                        <path d="M3 9.5l1.5-3h15L21 9.5" stroke="#f97316" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        <path d="M4 9.5v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8" stroke="#f97316" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                        <path d="M8 13h.01M12 13h.01M16 13h.01" stroke="#f97316" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+                                    </svg>
+                                </div>
+                                <div class="type-name">Boutique / Commerce</div>
+                                <div class="type-desc">Espace commercial pour activité professionnelle</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Informations -->
+                <div class="form-section" data-section="2" style="display:none;">
+                    <h2 style="font-size: 1.4rem; color: #111827; margin-bottom: 0.5rem;">Informations</h2>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display:block; font-weight:700; margin-bottom:0.4rem;">Titre de l'annonce <span style="color:#EF4444">*</span></label>
+                        <input id="infoTitle" type="text" placeholder="Ex: Villa moderne avec jardin à Cotonou" style="width:100%; padding:0.9rem; border:1.5px solid #e6e6e6; border-radius:8px;">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display:block; font-weight:700; margin-bottom:0.4rem;">Quartier <span style="color:#EF4444">*</span></label>
+                        <input id="infoQuartier" type="text" placeholder="Ex: Fidjrossè" style="width:100%; padding:0.9rem; border:1.5px solid #e6e6e6; border-radius:8px;">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display:block; font-weight:700; margin-bottom:0.4rem;">Description <span style="color:#EF4444">*</span></label>
+                        <textarea id="infoDesc" placeholder="Décrivez votre bien..." style="width:100%; padding:0.9rem; border:1.5px solid #e6e6e6; border-radius:8px; min-height:120px;"></textarea>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Photos -->
+                <div class="form-section" data-section="3" style="display:none;">
+                    <h2 style="font-size: 1.4rem; color: #111827; margin-bottom: 0.5rem;">Photos</h2>
+                    <p style="color: #6b7280; margin-bottom: 1rem;">Ajoutez au moins 3 photos de qualité</p>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📷</div>
+                        <div class="upload-text">Cliquez pour ajouter des photos</div>
+                        <div class="upload-hint">ou glissez-déposez vos images (max 10 Mo par image)</div>
+                    </div>
+                    <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
+                    <div class="image-preview-grid" id="imagePreview"></div>
+                </div>
+
+                <!-- STEP 4: Prix -->
+                <div class="form-section" data-section="4" style="display:none;">
+                    <div class="price-card">
+                        <div class="price-label">Prix mensuel</div>
+                        <div class="price-display">
+                            <input id="priceInput" type="number" min="0" placeholder="45000" aria-label="Prix mensuel">
+                            <span class="price-currency">FCFA</span>
+                        </div>
+                        <div class="price-note">par mois</div>
+                    </div>
+                    <div class="toggle-panel">
+                        <div>
+                            <div class="toggle-title">Location courte durée</div>
+                            <div class="toggle-copy">Autoriser les réservations à la nuitée</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="shortTermToggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="prevBtn">Retour</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">Continuer</button>
+                </div>
+            </form>
+        </article>
+
+        <!-- Barre d'actions fixe en bas -->
+        <div class="action-bar" aria-hidden="false">
+            <button type="button" class="btn btn-secondary" id="prevBtnBar">Retour</button>
+            <button type="button" class="btn btn-primary" id="nextBtnBar">Continuer</button>
+        </div>
+    </main>
+
+    <script>
+        (function(){
+            // Multi-step navigation for this page
+            const totalSteps = 4;
+            let currentStep = 1;
+
+            const sections = document.querySelectorAll('.form-section');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            const progressTrack = document.querySelector('.progress-track');
+
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtnBar = document.getElementById('prevBtnBar');
+            const nextBtnBar = document.getElementById('nextBtnBar');
+
+            // type selection
+            const cards = document.querySelectorAll('.type-card');
+            let selectedType = null;
+            let lastSelected = null;
+
+            function animateSelect(card){
+                if(lastSelected && lastSelected!==card){
+                    lastSelected.classList.remove('selected');
+                }
+                card.classList.add('selected');
+                lastSelected = card;
+            }
+
+            cards.forEach(c=> c.addEventListener('click', ()=>{
+                selectedType = c.dataset.type;
+                animateSelect(c);
+            }));
+
+            // upload logic (simple, self-contained)
+            const fileInput = document.getElementById('fileInput');
+            const uploadArea = document.getElementById('uploadArea') || document.querySelector('.upload-area');
+            const imagePreview = document.getElementById('imagePreview');
+            const MAX_FILE_SIZE = 10 * 1024 * 1024;
+            const MAX_FILES = 12;
+            let uploadedImages = [];
+
+            function renderPreviews(){
+                if(!imagePreview) return;
+                imagePreview.innerHTML = '';
+                uploadedImages.forEach(img=>{
+                    const div = document.createElement('div');
+                    div.className = 'preview-item';
+                    div.innerHTML = `<img src="${img.src}" alt="${img.name}"><button type="button" class="remove-image" data-id="${img.id}">×</button>`;
+                    imagePreview.appendChild(div);
+                });
+                imagePreview.querySelectorAll('.remove-image').forEach(btn=> btn.addEventListener('click', ()=>{
+                    const id = btn.dataset.id; uploadedImages = uploadedImages.filter(i=>i.id!==id); renderPreviews();
+                }));
+                const summary = document.getElementById('summaryPhotos'); if(summary) summary.textContent = uploadedImages.length;
+            }
+
+            function handleFiles(files){
+                const arr = Array.from(files||[]);
+                if(uploadedImages.length + arr.length > MAX_FILES){ alert(`⚠️ Maximum ${MAX_FILES} images`); return; }
+                arr.forEach(file=>{
+                    if(!file.type.startsWith('image/')) return;
+                    if(file.size > MAX_FILE_SIZE){ alert(`⚠️ ${file.name} > 10 Mo`); return; }
+                    const reader = new FileReader();
+                    reader.onload = e=>{ uploadedImages.push({ id: Date.now().toString(36)+Math.random().toString(36).slice(2,8), name:file.name, src:e.target.result }); renderPreviews(); };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            if(fileInput){
+                fileInput.addEventListener('change', e=>{ handleFiles(e.target.files); fileInput.value=''; });
+            }
+            if(uploadArea){
+                ['dragenter','dragover','dragleave','drop'].forEach(ev=> uploadArea.addEventListener(ev, e=> e.preventDefault()));
+                uploadArea.addEventListener('dragover', ()=> uploadArea.classList.add('drag-over'));
+                uploadArea.addEventListener('dragleave', ()=> uploadArea.classList.remove('drag-over'));
+                uploadArea.addEventListener('drop', e=>{ uploadArea.classList.remove('drag-over'); if(e.dataTransfer) handleFiles(e.dataTransfer.files); });
+                uploadArea.addEventListener('click', ()=> { if(fileInput) fileInput.click(); });
+            }
+
+            // navigation
+            function updateUI(){
+                sections.forEach((s, i)=>{
+                    const n = i+1;
+                    if(n===currentStep) s.style.display = 'block'; else s.style.display = 'none';
+                });
+                // progress
+                const pct = ((currentStep-1)/(totalSteps-1))*100;
+                if(progressTrack){
+                    let fill = progressTrack.querySelector('.progress-fill');
+                    if(!fill){ fill = document.createElement('div'); fill.className='progress-fill'; progressTrack.appendChild(fill); }
+                    fill.style.width = pct + '%';
+                    fill.style.height = '8px'; fill.style.background = getComputedStyle(document.documentElement).getPropertyValue('--primary-orange') || '#f97316'; fill.style.borderRadius='999px';
+                }
+                // highlight labels
+                progressSteps.forEach((el, idx)=>{ el.style.color = (idx+1===currentStep? '#111827' : '#9ca3af'); });
+
+                prevBtn.style.display = currentStep===1 ? 'none' : 'inline-block';
+                nextBtn.textContent = currentStep===totalSteps ? 'Publier' : 'Continuer';
+                // sticky bar buttons
+            }
+
+            function validateStep(step){
+                if(step===1){ if(!selectedType){ alert('Veuillez sélectionner un type de bien'); return false; } return true; }
+                if(step===2){ const title = document.getElementById('infoTitle')?.value || ''; const quartier = document.getElementById('infoQuartier')?.value || ''; const desc = document.getElementById('infoDesc')?.value || ''; if(!title||!quartier||!desc){ alert('Veuillez remplir tous les champs obligatoires'); return false;} if(desc.length<5){ alert('La description doit contenir au moins 50 caractères'); return false;} return true; }
+                if(step===3){ if(uploadedImages.length<3){ alert('Veuillez ajouter au moins 3 photos'); return false; } return true; }
+                if(step===4){ const price = document.getElementById('priceInput')?.value || ''; if(!price){ alert('Veuillez saisir le prix'); return false; } return true; }
+                return true;
+            }
+
+            nextBtn.addEventListener('click', ()=>{
+                if(!validateStep(currentStep)) return;
+                if(currentStep < totalSteps){ currentStep++; updateUI(); } else {
+                    // final submit simulation
+                    alert('Annonce prête — simulation d\'envoi');
+                }
+            });
+            prevBtn.addEventListener('click', ()=>{ if(currentStep>1){ currentStep--; updateUI(); } else { window.location.href='Page_acceuil.html'; }});
+            if(prevBtnBar) prevBtnBar.addEventListener('click', ()=> prevBtn.click());
+            if(nextBtnBar) nextBtnBar.addEventListener('click', ()=> nextBtn.click());
+
+            // initial
+            updateUI();
+        })();
+    </script>
+</body>
+
+</html>
